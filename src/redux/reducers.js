@@ -4,7 +4,7 @@ import { mutatorToReducer, ArrayUtils, reduceAll } from "../utils";
 import {
   addPlayer as addPlayerMutator,
   moveCurrentPlayerToRoom,
-  movePlayersToStartingPositions,
+  movePlayersToStartingPositions, pickWhoDunnit,
 } from "./mutators"
 import {
   getCurrentTurnPlayerName,
@@ -26,6 +26,7 @@ export const initialState = {
     name: "",
   },
   players: [],
+  whoDunnit: null,
   characters: [
     {
       name: "Miss Scarlett",
@@ -50,6 +51,26 @@ export const initialState = {
     {
       name: "Mrs. White",
       image: "white"
+    }
+  ],
+  weapons: [
+    {
+      name: "Candlestick"
+    },
+    {
+      name: "Dagger"
+    },
+    {
+      name: "Lead Pipe"
+    },
+    {
+      name: "Revolver"
+    },
+    {
+      name: "Rope"
+    },
+    {
+      name: "Wrench"
     }
   ],
   rooms: [
@@ -106,9 +127,7 @@ const addPlayer = (state, action) => reduceAll(state,
   mutatorToReducer(state => addPlayerMutator(state, action))
 )
 
-const init = state => reduceAll(state,
-  resetAvailableComputerPlayers,
-)
+const init = state => state
 
 const startGame = state => reduceAll(state,
   state => ({
@@ -117,6 +136,7 @@ const startGame = state => reduceAll(state,
     victory: false
   }),
   resetCurrentTurnPlayerIndex,
+  mutatorToReducer(pickWhoDunnit),
   mutatorToReducer(movePlayersToStartingPositions),
 )
 
@@ -152,10 +172,6 @@ map('nextPlayerTurn', nextPlayerTurn)
 const resetCurrentTurnPlayerIndex = state => ({
   ...state,
   currentTurnPlayerIndex: -1
-})
-
-const resetAvailableComputerPlayers = state => ({
-  ...state,
 })
 
 const showCurrentPlayerNotification = state => ({

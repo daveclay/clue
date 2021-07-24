@@ -1,5 +1,5 @@
 import {
-  ArrayUtils
+  ArrayUtils, mutatorToReducer
 } from "../utils";
 import {
   getAvailableCharacters,
@@ -36,6 +36,14 @@ export const addPlayer = (state, action) => {
 
 export const movePlayersToStartingPositions = state => {
   //state.rooms.forEach(room => room.playerNames = []);
+}
+
+export const pickWhoDunnit = state => {
+  state.whoDunnit = {
+    character: ArrayUtils.pluckRandom(state.characters),
+    weapon: ArrayUtils.pluckRandom(state.weapons),
+    room: ArrayUtils.pluckRandom(state.rooms)
+  }
 }
 
 export const movePlayerToRoom = (state, player, roomName) => {
