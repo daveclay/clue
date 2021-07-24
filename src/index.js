@@ -30,9 +30,9 @@ const steps = [
   () => addComputerPlayer(),
   () => addComputerPlayer(),
   () => startGame(),
-  () => onRoomSelected("Kitchen"), // Daddy
-  () => onRoomSelected("Library"), // Foo
-  () => enableComputerPlayers()
+  () => enableComputerPlayers(),
+  () => onRoomSelected("Kitchen"), // Jackson
+  () => onRoomSelected("Library"), // Daddy
 ]
 let currentStepIndex = 0;
 let runStep = () => {

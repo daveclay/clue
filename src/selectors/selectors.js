@@ -1,6 +1,11 @@
 /************************************************
  * Selectors
  ************************************************/
+export const getPlayerCharacterNames = (players) => players.map(player => player.character.name)
+export const getAvailableCharacters = (characters, players) => {
+  let playerCharacterNames = getPlayerCharacterNames(players)
+  return characters.filter(character => !playerCharacterNames.includes(character.name))
+}
 export const getPlayersInRoom = (players, room) => room.playerNames.map(name => getPlayerByName(players, name))
 export const getPlayerByName = (players, name) => players.find(player => player.name === name)
 export const getCurrentTurnPlayer = (state) => state.players[state.currentTurnPlayerIndex]

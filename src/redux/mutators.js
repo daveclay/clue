@@ -2,6 +2,7 @@ import {
   ArrayUtils
 } from "../utils";
 import {
+  getAvailableCharacters,
   getCurrentTurnPlayer,
   getRoomByName,
 } from "../selectors/selectors";
@@ -15,13 +16,16 @@ export const resetGame = state => {
 }
 
 export const addPlayer = (state, action) => {
-  if (state.addPlayerForm.name.length === 0)  {
+  let availablePlayers = getAvailableCharacters(state.characters, state.players)
+  if (availablePlayers.size == 0) {
+    alert("No more characters available!")
     return state;
   }
-  let character = ArrayUtils.pluckRandom(state.characters)
+
+  let character = ArrayUtils.pluckRandom(availablePlayers)
   let player = {
     ...action.player,
-    name: state.addPlayerForm.name,
+    name: state.addPlayerForm.name || character.name,
     character: character,
     image: character.image
   }
@@ -31,7 +35,7 @@ export const addPlayer = (state, action) => {
 }
 
 export const movePlayersToStartingPositions = state => {
-  state.rooms.forEach(room => room.playerNames = []);
+  //state.rooms.forEach(room => room.playerNames = []);
 }
 
 export const movePlayerToRoom = (state, player, roomName) => {
