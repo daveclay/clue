@@ -1,5 +1,7 @@
 import {
-  ArrayUtils, mutatorToReducer
+  ArrayUtils,
+  repeat,
+  mutatorToReducer
 } from "../utils";
 import {
   getAvailableCharacters,
@@ -16,13 +18,13 @@ export const resetGame = state => {
 }
 
 export const addPlayer = (state, action) => {
-  let availablePlayers = getAvailableCharacters(state.characters, state.players)
-  if (availablePlayers.size == 0) {
+  let availableCharacters = getAvailableCharacters(state.characters, state.players)
+  if (availableCharacters.size == 0) {
     alert("No more characters available!")
     return state;
   }
 
-  let character = ArrayUtils.pluckRandom(availablePlayers)
+  let character = ArrayUtils.sample(availableCharacters)
   let player = {
     ...action.player,
     name: state.addPlayerForm.name || character.name,
@@ -38,11 +40,27 @@ export const movePlayersToStartingPositions = state => {
   //state.rooms.forEach(room => room.playerNames = []);
 }
 
+export const distributeCards = state => {
+  let availableCards = [
+    ...state.characters,
+    ...state.weapons,
+    ...state.rooms
+  ]
+
+  let pluckPlayerCards = () => {
+    return repeat(3)(cards => [...cards, ArrayUtils.pluckRandom(availableCards)])([])
+  }
+
+  state.players.forEach(player => {
+    player.cards = pluckPlayerCards()
+  })
+}
+
 export const pickWhoDunnit = state => {
   state.whoDunnit = {
-    character: ArrayUtils.pluckRandom(state.characters),
-    weapon: ArrayUtils.pluckRandom(state.weapons),
-    room: ArrayUtils.pluckRandom(state.rooms)
+    character: ArrayUtils.sample(state.characters),
+    weapon: ArrayUtils.sample(state.weapons),
+    room: ArrayUtils.sample(state.rooms)
   }
 }
 

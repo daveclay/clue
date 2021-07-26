@@ -2,7 +2,7 @@ import * as actions from "./actions"
 import { map, reducer } from "./utils/redux-map";
 import { mutatorToReducer, ArrayUtils, reduceAll } from "../utils";
 import {
-  addPlayer as addPlayerMutator,
+  addPlayer as addPlayerMutator, distributeCards,
   moveCurrentPlayerToRoom,
   movePlayersToStartingPositions, pickWhoDunnit,
 } from "./mutators"
@@ -137,6 +137,7 @@ const startGame = state => reduceAll(state,
   }),
   resetCurrentTurnPlayerIndex,
   mutatorToReducer(pickWhoDunnit),
+  mutatorToReducer(distributeCards),
   mutatorToReducer(movePlayersToStartingPositions),
 )
 
