@@ -4,9 +4,13 @@ body {
   font-family: Helvetica, sans-serif;
 }
 
-.cards {
+.footer {
+  height: 200px;
   background-color: white;
-  height: 100px;
+  margin: 10px;
+}
+
+.cards {
 }
 
 .cards .card {
@@ -14,6 +18,9 @@ body {
   border: 1px solid gray;
   padding: 5px;
   margin: 5px;
+  width: 100px;
+  height: 140px;
+  vertical-align: top;
 }
 
 .addPlayer {
@@ -82,8 +89,8 @@ body {
   background-color: white;
   display: inline-block;
   vertical-align: top;
-  width: 360px;
-  height: 360px;
+  width: 240px;
+  height: 240px;
 }
 
 .room .roomName {
