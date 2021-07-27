@@ -37,20 +37,3 @@ const shallowEquals = (object1, object2) => {
 
   return true;
 }
-
-export const expect = (obj) => {
-  return {
-    to_equal(expected) {
-      if (!shallowEquals(obj, expected)) {
-        throw `${JSON.stringify(obj)} did not equal ${JSON.stringify(expected)}`;
-      }
-    }
-  }
-}
-
-export const describe = (fnObjOrDesc, block) => {
-  let name = typeof fnObjOrDesc === "function" ? fnObjOrDesc.name : fnObjOrDesc
-  console.log(`testing: ${name}`)
-  block()
-  console.log("pass!")
-}

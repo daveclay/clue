@@ -12,7 +12,7 @@ import produce from "immer";
 export const repeat = times => f => value => {
   if (times > 0) {
     let nextValue = f(value)
-    return repeat(times - 1)(f)(nextValue)
+    repeat(times - 1)(f)(nextValue)
   } else {
     return value
   }
@@ -25,7 +25,10 @@ export const repeat = times => f => value => {
  * @param n
  * @returns {function(*): *}
  */
-export const times = n => f => repeat(n) (i => (f(i), i + 1)) (0)
+export const times = n => f => repeat(n) (i => {
+  f(i)
+  return i+1
+})(0)
 
 export const ArrayUtils = {
   clone: function(array) {

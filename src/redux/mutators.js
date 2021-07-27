@@ -1,7 +1,7 @@
 import {
   ArrayUtils,
   repeat,
-  mutatorToReducer
+  mutatorToReducer, times
 } from "../utils";
 import {
   getAvailableCharacters,
@@ -29,7 +29,8 @@ export const addPlayer = (state, action) => {
     ...action.player,
     name: state.addPlayerForm.name || character.name,
     character: character,
-    image: character.image
+    image: character.image,
+    cards: []
   }
   state.players[state.players.length] = player
   movePlayerToRoom(state, player, "Hall")
@@ -47,12 +48,13 @@ export const distributeCards = state => {
     ...state.rooms
   ]
 
-  let pluckPlayerCards = () => {
-    return repeat(3)(cards => [...cards, ArrayUtils.pluckRandom(availableCards)])([])
-  }
+  let numPlayers = state.players.length
 
-  state.players.forEach(player => {
-    player.cards = pluckPlayerCards()
+  times(availableCards.length) (index => {
+    let playerIndex = index % numPlayers
+    let player = state.players[playerIndex]
+    let card = ArrayUtils.pluckRandom(availableCards)
+    player.cards = [...player.cards, card]
   })
 }
 
