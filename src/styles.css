@@ -4,16 +4,16 @@ body {
   font-family: Helvetica, sans-serif;
 }
 
-body.voting {
-  animation-name: voting;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+.cards {
+  background-color: white;
+  height: 100px;
 }
 
-@keyframes voting {
-  from {background-color: #bd0000;}
-  to {background-color: #2d0000;}
+.cards .card {
+  display: inline-block;
+  border: 1px solid gray;
+  padding: 5px;
+  margin: 5px;
 }
 
 .addPlayer {
@@ -61,40 +61,6 @@ body.voting {
   100% {background-color: #f1b3ff;}
 }
 
-#notify.emergencyMeeting {
-  color: white;
-  animation-name: emergencyButtonActivated;
-  animation-duration: 300ms;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-#emergencyMeetingButton {
-  border-radius: 50px;
-  height: 80px;
-  width: 80px;
-  border: none;
-  margin-left: 20px;
-  filter: drop-shadow(3px 3px 2px #000000);
-  background-color: orangered;
-  color: white;
-  animation-name: emergencyButtonActivated;
-  animation-duration: 300ms;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-#emergencyMeetingButton:disabled {
-  background-color: #999999;
-  color: #666666;
-  animation-name: none;
-}
-
-@keyframes emergencyButtonActivated {
-  from {background-color: #aa0000;}
-  to {background-color: #580000;}
-}
-
 .title {
   display: inline-block;
   vertical-align: top;
@@ -128,64 +94,6 @@ body.voting {
   cursor: pointer;
 }
 
-.room .task {
-  font-size: 13px;
-  border-radius: 10px;
-  display: inline-block;
-  border: 1px solid #a9a9a9;
-  color: darkgray;
-  padding: 10px;
-  background-color: #d5e2d8;
-}
-
-.room .task.selectable:hover {
-  cursor: pointer;
-  animation-name: taskSelectableHoverAnimation;
-  animation-duration: 280ms;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-@keyframes taskSelectableHoverAnimation {
-  from {background-color: #63ff02;}
-  to {background-color: #60ff00;}
-}
-
-.task.selectable {
-  color: black;
-  animation-name: taskSelectableAnimation;
-  animation-duration: 400ms;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-@keyframes taskSelectableAnimation {
-  from {background-color: #ffe667;}
-  to {background-color: #ffffff;}
-}
-
-.taskStatus {
-  display: inline-block;
-  background-size: 20px;
-  width: 20px;
-  height: 20px;
-}
-
-.taskStatus.completed {
-  background-image: url('completed.png');
-  background-repeat: no-repeat;
-}
-
-.taskStatus.incomplete {
-  background-image: url('incomplete.png');
-  background-repeat: no-repeat;
-}
-
-.taskContainer {
-  display: inline-block;
-  width: 200px;
-}
-
 .player {
   display: inline-block;
   color: #999999;
@@ -207,47 +115,12 @@ body.voting {
   display: none !important;
 }
 
-.imposterHighlight .playerName {
-  background-color: red;
-  color: white;
-  border-radius: 10px;
-  animation-name: imposterHighlighAnimation;
-  animation-duration: 300ms;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-@keyframes imposterHighlighAnimation {
-  from {background-color: #ffffff;}
-  to {background-color: #ff0000;}
-}
-
 .crewmateHighlight {
   color: #e3c569;
 }
 
-.votingHighlight {
-  color: #ffbf00;
-}
-
 .turnHighlight {
   color: #1a860d;
-}
-
-.playerEjected {
-  animation-name: spin;
-  animation-duration: 1000ms;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-@keyframes spin {
-  from {
-    transform:rotate(0deg);
-  }
-  to {
-    transform:rotate(360deg);
-  }
 }
 
 .turnHighlight img {

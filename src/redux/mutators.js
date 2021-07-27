@@ -25,8 +25,10 @@ export const addPlayer = (state, action) => {
   }
 
   let character = ArrayUtils.sample(availableCharacters)
+  let playerIndex = state.players.length
   let player = {
     ...action.player,
+    id: playerIndex,
     name: state.addPlayerForm.name || character.name,
     character: character,
     image: character.image,
@@ -53,7 +55,11 @@ export const distributeCards = state => {
   times(availableCards.length) (index => {
     let playerIndex = index % numPlayers
     let player = state.players[playerIndex]
-    let card = ArrayUtils.pluckRandom(availableCards)
+    let card = {
+      id: index,
+      ...ArrayUtils.pluckRandom(availableCards)
+    }
+
     player.cards = [...player.cards, card]
   })
 }
