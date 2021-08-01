@@ -29,6 +29,8 @@ io.on('connection', function(socket){
   });
 })
 
-http.listen(4001, function() {
-  console.log('listening on *:4001')
+const port = process.env.SERVER_PORT || 80
+
+http.listen(port, function() {
+  console.log(`listening on *:${port}`)
 })
