@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 
 import { init } from "./actions"
 
-const socket = io('http://localhost:4001');
+const socket = io(process.env.REACT_APP_SERVER_URL|| 'http://localhost:4001');
 const socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
 const middlewareEnhancer = applyMiddleware(thunkMiddleware, socketIoMiddleware)
