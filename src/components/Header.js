@@ -9,13 +9,20 @@ import {
 
 const Header = ({
     addPlayerForm,
+    messageFromServer,
     updatePlayerName,
     addHumanPlayer,
     addComputerPlayer,
     startGame
 }) => (
   <div className="header">
-    <div className="title">CLUE</div>
+    <div className="title">
+      CLUE
+      &nbsp;
+      {
+        messageFromServer
+      }
+    </div>
     <div className="gameControls">
       <div className="addPlayer">
         <input id="playerName"
@@ -40,7 +47,8 @@ const Header = ({
 )
 
 const mapStateToProps = state => ({
-  addPlayerForm: state.addPlayerForm
+  addPlayerForm: state.addPlayerForm,
+  messageFromServer: state.messageFromServer
 })
 
 export default connect(

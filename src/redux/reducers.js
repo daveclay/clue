@@ -158,7 +158,13 @@ const enableComputerPlayers = state => ({
   computerPlayersEnabled: true,
 })
 
+const hello = (state, action) => ({
+  ...state,
+  messageFromServer: action.message
+})
+
 map('init', init)
+map('hello', hello)
 map('startGame', startGame)
 map('enableComputerPlayers', enableComputerPlayers)
 map('updatePlayerName', updatePlayerName)

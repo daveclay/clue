@@ -9,6 +9,7 @@ import {
   addComputerPlayer,
   addHumanPlayer,
   enableComputerPlayers,
+  helloServer,
   onRoomSelected,
   startGame,
   updatePlayerName,
@@ -23,6 +24,7 @@ ReactDOM.render(
 )
 
 const steps = [
+  () => helloServer(),
   () => updatePlayerName("Jackson"),
   () => addHumanPlayer(),
   () => updatePlayerName("Daddy"),

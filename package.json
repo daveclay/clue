@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
+    "express": "^4.17.1",
     "gh-pages": "^3.1.0",
     "immer": "^8.0.0",
     "react": "^17.0.1",
@@ -15,16 +16,21 @@
     "react-scripts": "4.0.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
+    "redux-socket.io": "^1.4.0",
     "redux-thunk": "^2.3.0",
+    "socket.io": "^4.1.3",
+    "socket.io-client": "^4.1.3",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
+    "dev": "concurrently \"npm run start\" \"nodemon ./server.js\"",
     "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build && rm -rf docs && mv build docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "npm run build && git add docs && git commit -m \"deploying\" && git push"
   },
+  "proxy": "http://localhost:4001",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -42,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
   }
 }

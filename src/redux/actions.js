@@ -7,6 +7,12 @@ import {ArrayUtils} from "../utils";
 export const init = () => ({
   type: 'init'
 })
+
+export const helloServer = () => ({
+  type: 'server/hello',
+  data:'Hello!'
+})
+
 export const updatePlayerName = (name) => ({
   type: 'updatePlayerName',
   name: name
