@@ -24,7 +24,9 @@ export class ReducerMap {
     if (reducers) {
       return reducers;
     } else {
-      console.log(`No reducer found for ${type}`)
+      if (!type.startsWith("server/") && type !== "@@INIT") {
+        console.log(`No reducer found for ${type}`)
+      }
       return [];
     }
   }
