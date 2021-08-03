@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const http = require('http')
-const socketio = require("socket.io")
+const socketio = require('socket.io')
 
 class WebServer {
   constructor(options) {
@@ -9,7 +9,7 @@ class WebServer {
     this.port = options.port
   }
 
-  start() {
+  start(actionHandler) {
     const app = express()
     app.use(express.static(this.assetPath))
     app.get('*', (req, res) => {
@@ -26,13 +26,11 @@ class WebServer {
     io.on('connection', socket => {
       console.log("Socket connected: " + socket.id)
       socket.on('action', action => {
-        if (action.type === 'server/hello'){
-          console.log('Got hello data!', action.data)
-          socket.emit('action', {
-            type: "hello",
-            message:'good day!'
-          })
-        }
+        actionHandler.dispatch(action)
+        socket.emit('action', {
+          type: "hello",
+          message:'good day!'
+        })
       })
     })
 

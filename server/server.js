@@ -9,12 +9,13 @@ const redis = new Redis({
   host: process.env.REDIS_URL || "localhost"
 })
 
-new GameDAO(redis).hi()
+const gameDAO = new GameDAO(redis)
+gameDAO.initialize();
 
 const webServer = new WebServer({
   assetPath: path.join(__dirname, '../client/build'),
   port: process.env.PORT || 4001
 })
 
-webServer.start()
+webServer.start(gameDAO)
 
