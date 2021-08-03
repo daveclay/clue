@@ -5,7 +5,7 @@ const http = require('http').Server(app)
 const redis = require('redis');
 
 const redisPort = 6379
-const redisHost = process.env.REDIS_HOST || "localhost"
+const redisHost = process.env.REDIS_URL || "localhost"
 
 const redisClient = redis.createClient(redisPort, redisHost)
 redisClient.on('connect', function() {
@@ -18,7 +18,7 @@ const io = require("socket.io")(http, {
   }
 });
 
-const publicPath = path.join(__dirname, 'docs')
+const publicPath = path.join(__dirname, '../client/build')
 app.use(express.static(publicPath))
 
 app.get('*', (req, res) => {
