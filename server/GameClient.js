@@ -13,8 +13,8 @@ class GameClient {
 
   update(state) {
     this.socket.emit('action', {
-      type: "hello",
-      message:'good day!'
+      type: "update",
+      state: state
     })
   }
 }

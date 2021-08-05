@@ -6,7 +6,7 @@ const Notify = ({notify}) => (
 );
 
 const mapStateToProps = state => ({
-  notify: state.notify
+  notify: state.client.notify
 })
 
 export default connect(mapStateToProps)(Notify);

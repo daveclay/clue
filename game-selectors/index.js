@@ -25,14 +25,16 @@ const isCurrentTurnPlayerInRoom = (state, room) => {
   }
 }
 
+const getPlayerByName = (players, name) => players.find(player => player.name === name)
+
 module.exports = {
   getPlayerCharacterNames: getPlayerCharacterNames,
   getAvailableCharacters: (characters, players) => {
     let playerCharacterNames = getPlayerCharacterNames(players)
     return characters.filter(character => !playerCharacterNames.includes(character.name))
   },
+  getPlayerByName: getPlayerByName,
   getPlayersInRoom: (players, room) => room.playerNames.map(name => getPlayerByName(players, name)),
-  getPlayerByName: (players, name) => players.find(player => player.name === name),
   getCurrentTurnPlayer: getCurrentTurnPlayer,
   getCurrentTurnPlayerName: getCurrentTurnPlayerName,
   isCurrentTurnPlayer: (state, player) => getCurrentTurnPlayerName(state) === player.name,

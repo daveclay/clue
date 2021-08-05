@@ -1,5 +1,6 @@
 const redux = require("redux")
 const reduxUtils = require("redux-utils")
+// TODO: weird to import this to get things to run but nt need it. Change to Class/constructor/init
 const reducers = require("./reducers")
 const GameClient = require("./GameClient")
 

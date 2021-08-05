@@ -4,7 +4,11 @@ import Room from "./Room"
 
 const Rooms = ({ rooms }) => (
     <div>
-      { rooms.map(room => <Room key={room.name} room={room}/>) }
+      {
+          rooms == null ?
+            null :
+            rooms.map(room => <Room key={room.name} room={room}/>)
+      }
     </div>
 )
 

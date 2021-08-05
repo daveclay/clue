@@ -47,7 +47,7 @@ const Header = ({
 )
 
 const mapStateToProps = state => ({
-  addPlayerForm: state.addPlayerForm,
+  addPlayerForm: state.client.addPlayerForm,
   messageFromServer: state.messageFromServer
 })
 

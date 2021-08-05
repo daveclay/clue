@@ -1,106 +1,15 @@
 import { map, reducer } from "redux-utils";
 
 export const initialState = {
-  gameOver: false,
-  notify: {
-    message: null
-  },
-  computerPlayersEnabled: false,
-  currentTurnPlayerIndex: -1,
-  emergencyMeetingStarted: false,
-  emergencyMeetingInitiatedByPlayerIndex: null,
-  voteTalliesByPlayer: {},
-  computerPlayers: [],
-  addPlayerForm: {
-    name: "",
-  },
-  players: [],
-  whoDunnit: null,
-  characters: [
-    {
-      name: "Miss Scarlett",
-      image: "pink"
+  client: {
+    notify: {
+      message: null
     },
-    {
-      name: "Mr. Green",
-      image: "green"
-    },
-    {
-      name: "Colonel Mustard",
-      image: "orange"
-    },
-    {
-      name: "Professor Plum",
-      image: "blue"
-    },
-    {
-      name: "Mrs. Peacock",
-      image: "lightblue"
-    },
-    {
-      name: "Mrs. White",
-      image: "white"
+    addPlayerForm: {
+      name: "",
     }
-  ],
-  weapons: [
-    {
-      name: "Candlestick"
-    },
-    {
-      name: "Dagger"
-    },
-    {
-      name: "Lead Pipe"
-    },
-    {
-      name: "Revolver"
-    },
-    {
-      name: "Rope"
-    },
-    {
-      name: "Wrench"
-    }
-  ],
-  rooms: [
-    {
-      name: "Kitchen",
-      playerNames: [],
-      emergencyButton: true
-    },
-    {
-      name: "Ballroom",
-      playerNames: [],
-    },
-    {
-      name: "Conservatory",
-      playerNames: [],
-    },
-    {
-      name: "Billiard Room",
-      playerNames: [],
-    },
-    {
-      name: "Library",
-      playerNames: [],
-    },
-    {
-      name: "Study",
-      playerNames: [],
-    },
-    {
-      name: "Hall",
-      playerNames: [],
-    },
-    {
-      name: "Lounge",
-      playerNames: [],
-    },
-    {
-      name: "Dining Room",
-      playerNames: [],
-    },
-  ]
+  },
+  players: []
 }
 
 const updatePlayerName = (state, action) => {
@@ -121,5 +30,11 @@ const hello = (state, action) => ({
 map('init', init)
 map('hello', hello)
 map('updatePlayerName', updatePlayerName)
+map('update', (state, action) => {
+  return {
+    ...state,
+    ...action.state
+  }
+})
 
 export const rootReducer = reducer

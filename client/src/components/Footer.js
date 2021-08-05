@@ -15,7 +15,7 @@ const Footer = ({
 )
 
 const mapStateToProps = (state, ownProps) => ({
-  player: state.players[state.currentTurnPlayerIndex]
+  player: state.players.length == 0 ? null : state.players[state.currentTurnPlayerIndex]
 })
 
 export default connect(
