@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Hello from 'redux-utils'
 
 import { Provider } from 'react-redux'
 import store from './redux/store'

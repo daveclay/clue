@@ -8,6 +8,7 @@ class GameClient {
   }
 
   selectState(state) {
+    // TODO: select only client-visible state (specific to _this_ client's ID). So they can't see each other's cards.
     return state
   }
 

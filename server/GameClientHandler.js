@@ -125,13 +125,16 @@ class GameClientHandler {
   dispatchGameClientAction(gameClient, action) {
     // TODO: Probably add the gameClient to a clone of the action to dispatch? So that one client can't pretend its their turn?
     console.log(`action is`, action)
+    // TODO: store history of actions for replays.
     this.store.dispatch(action)
+    // TODO: store game state as a log?
     console.log("updated state: ", this.store.getState())
+    // TODO: some sort of "atomic" deconstruction of the updatedState and store in redis
+
     // TODO: emit! What to emit? scope stuff? schema? Better state layout?
     this.gameClients.forEach(gameClient =>
       gameClient.update(gameClient.selectState(this.store.getState()))
     )
-    // TODO: some sort of "atomic" deconstruction of the updatedState and store in redis
   }
 
   hi() {
