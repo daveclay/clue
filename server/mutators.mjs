@@ -1,13 +1,14 @@
 import {
-  ArrayUtils,
-  repeat,
-  mutatorToReducer, times
-} from "../redux-utils/utils.js";
+  times,
+  sample,
+  pluckRandom,
+  allExcept
+} from "array-utils"
 import {
   getAvailableCharacters,
   getCurrentTurnPlayer,
   getRoomByName,
-} from "../redux-utils/selectors/selectors";
+} from "game-selectors"
 
 /************************************************
  * Mutators
@@ -24,7 +25,7 @@ export const addPlayer = (state, action) => {
     return state;
   }
 
-  let character = ArrayUtils.sample(availableCharacters)
+  let character = sample(availableCharacters)
   let playerIndex = state.players.length
   let player = {
     ...action.player,
@@ -57,7 +58,7 @@ export const distributeCards = state => {
     let player = state.players[playerIndex]
     let card = {
       id: index,
-      ...ArrayUtils.pluckRandom(availableCards)
+      ...pluckRandom(availableCards)
     }
 
     player.cards = [...player.cards, card]
@@ -66,9 +67,9 @@ export const distributeCards = state => {
 
 export const pickWhoDunnit = state => {
   state.whoDunnit = {
-    character: ArrayUtils.sample(state.characters),
-    weapon: ArrayUtils.sample(state.weapons),
-    room: ArrayUtils.sample(state.rooms)
+    character: sample(state.characters),
+    weapon: sample(state.weapons),
+    room: sample(state.rooms)
   }
 }
 
@@ -87,6 +88,6 @@ export const moveCurrentPlayerToRoom = (state, roomName) => {
 
 export const leaveCurrentRoom = (state, playerNameToRemove) => {
   state.rooms.forEach(room => {
-    room.playerNames = ArrayUtils.allExcept(room.playerNames, playerNameToRemove);
+    room.playerNames = allExcept(room.playerNames, playerNameToRemove);
   })
 }

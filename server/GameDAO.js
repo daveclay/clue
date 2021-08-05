@@ -1,3 +1,9 @@
+const reduxUtils = require("redux-utils")
+const {
+  map,
+  reducer
+} = reduxUtils
+
 class GameDAO {
   actionHandlersByType = {}
   state = {
@@ -97,35 +103,22 @@ class GameDAO {
     this.redis = redis
   }
 
-  addActionHandler(type, f) {
-    this.actionHandlersByType[type] = f
-  }
-
-  map(type) {
-    return {
-      to: f => {
-        console.log(`adding ${f} for type ${type}`)
-        this.addActionHandler(type, f)
-      }
-    }
-  }
-
   initialize() {
-    this.map("server/hello").to(action => {
+    map("server/hello", action => {
       console.log('Got hello data!', action.data)
       // TODO: ok, so this updates, but what does it return to the client?
       // TODO: ok, so it modifies some part of the state tree.
       // then, the "framework" determines _what_ changed, and sends it back?
       //
     })
-    this.map("server/addHumanPlayer").to(action => {
+
+    map("server/addHumanPlayer", action => {
     })
   }
 
   dispatch(action) {
     console.log(`action.type is ${action.type}`)
-    const handler = this.actionHandlersByType[action.type]
-    handler(action) // this will mutate state, so record it?
+    reducer(this.state, action)
   }
 
   hi() {
