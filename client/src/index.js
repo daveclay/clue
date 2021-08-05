@@ -32,8 +32,8 @@ const steps = [
   () => addHumanPlayer(),
   () => addComputerPlayer(),
   () => addComputerPlayer(),
-  /*
   () => startGame(),
+  /*
   () => enableComputerPlayers(),
   () => onRoomSelected("Kitchen"), // Jackson
   () => onRoomSelected("Library"), // Daddy

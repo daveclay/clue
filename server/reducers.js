@@ -35,18 +35,6 @@ const addPlayer = (state, action) => reduceAll(state,
   mutatorToReducer(state => mutators.addPlayer(state, action))
 )
 
-const startGame = state => reduceAll(state,
-  state => ({
-    ...state,
-    gameOver: false,
-    victory: false
-  }),
-  resetCurrentTurnPlayerIndex,
-  mutatorToReducer(pickWhoDunnit),
-  mutatorToReducer(distributeCards),
-  mutatorToReducer(movePlayersToStartingPositions),
-)
-
 const selectRoom = (state, action) => reduceAll(state,
   mutatorToReducer(state => moveCurrentPlayerToRoom(state, action.roomName)),
 )
@@ -91,7 +79,17 @@ map("hello", (state, action) => {
   }
 })
 
-map('startGame', startGame)
+map('startGame', state => reduceAll(state,
+  state => ({
+    ...state,
+    gameOver: false
+  }),
+  resetCurrentTurnPlayerIndex,
+  mutatorToReducer(pickWhoDunnit),
+  mutatorToReducer(distributeCards),
+  mutatorToReducer(movePlayersToStartingPositions),
+))
+
 map('enableComputerPlayers', enableComputerPlayers)
 map('addHumanPlayer', addPlayer)
 map('addComputerPlayer', addPlayer)

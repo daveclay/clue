@@ -12,22 +12,29 @@ export const initialState = {
   players: []
 }
 
-const updatePlayerName = (state, action) => {
+map('init', state => state)
+map('updatePlayerName', (state, action) => {
   return {
     ...state,
     addPlayerForm: {
       name: action.name
     }
   }
-}
-const init = state => state
+})
 
-map('init', init)
-map('updatePlayerName', updatePlayerName)
 map('update', (state, action) => {
   return {
     ...state,
     ...action.state
+  }
+})
+
+map("clearPlayerFormName", state => {
+  return {
+    ...state,
+    addPlayerForm: {
+      name: ""
+    }
   }
 })
 

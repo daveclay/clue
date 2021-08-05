@@ -22,7 +22,9 @@ export const addHumanPlayer = () => (dispatch, getState) => {
   if (getPlayerByName(state.players, state.client.addPlayerForm.name) != null) {
     alert(`There's already a player named ${state.client.addPlayerForm.name}`)
   } else {
-    // TODO: state.client.addPlayerForm.name = ""
+    dispatch({
+      type: "clearPlayerFormName"
+    })
     dispatch({
       type: 'server/addHumanPlayer',
       player: {
