@@ -1,6 +1,6 @@
 const reduxUtils = require("redux-utils")
+const reducers = require("./reducers")
 const {
-  map,
   reducer
 } = reduxUtils
 
@@ -103,7 +103,7 @@ class GameDAO {
   }
 
   dispatch(action) {
-    console.log(`action.type is ${action.type}`)
+    console.log(`action is`, action)
     reducer(this.state, action)
     // TODO: emit!
   }

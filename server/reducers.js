@@ -80,8 +80,8 @@ const showCurrentPlayerNotification = state => ({
   }
 });
 
-map("server/hello", action => {
-  console.log('Got hello data!', action.data)
+map("server/hello", (state, action) => {
+  console.log('Got hello data!', action)
   // TODO: ok, so this updates, but what does it return to the client?
   // TODO: ok, so it modifies some part of the state tree.
   // then, the "framework" determines _what_ changed, and sends it back?
