@@ -35,14 +35,13 @@ class Mutators {
     let player = {
       ...action.player,
       id: playerIndex,
-      name: state.addPlayerForm.name || character.name,
+      name: action.name || character.name,
       character: character,
       image: character.image,
       cards: []
     }
     state.players[state.players.length] = player
     Mutators.movePlayerToRoom(state, player, "Hall")
-    state.addPlayerForm.name = ""
   }
 
   static movePlayersToStartingPositions(state) {

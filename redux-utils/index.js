@@ -9,6 +9,10 @@ class ReducerMap {
 
   map(actionFn, reducer) {
     let actionName = (typeof actionFn === 'function') ? actionFn.name : actionFn
+    if (this.actionPrefix != null) {
+      actionName = this.actionPrefix + actionName
+    }
+
     if (!this.actionsToReducers[actionName]) {
       this.actionsToReducers[actionName] = [];
     }
@@ -27,34 +31,39 @@ class ReducerMap {
     if (reducers) {
       return reducers;
     } else {
-      if (!type.startsWith("server/") && type !== "@@INIT") {
-        console.log(`No reducer found for ${type}`)
-      }
+      console.log(`No reducer found for ${type}`)
       return [];
     }
   }
+
+  setActionPrefix(prefix) {
+    this.actionPrefix = prefix
+  }
 }
 
-const reducerMap = new ReducerMap();
+const reducerMap = new ReducerMap()
 
-const map = (actionFn, reducer) => {
-  reducerMap.map(actionFn, reducer);
+class ReduxUtils {
+  static map(actionFn, reducer) {
+    reducerMap.map(actionFn, reducer)
+  }
+
+  static actionPrefix(prefix) {
+    reducerMap.setActionPrefix(prefix)
+  }
+
+  static reducer(state = reducerMap.initialState, action) {
+    return reducerMap.reduce(state, action);
+  }
+
+  static reduceAll(state, ...reducers) {
+    return reducers.reduce((newState, reducer) => reducer(newState), state)
+  }
+
+  static mutatorToReducer(mutator) {
+    return (oldState, action) => produce(oldState, newState => mutator(newState, action))
+  }
 }
 
-const reducer = function reducer(state = reducerMap.initialState, action) {
-  return reducerMap.reduce(state, action);
-}
-
-const reduceAll = (state, ...reducers) => {
-  return reducers.reduce((newState, reducer) => reducer(newState), state)
-}
-
-const mutatorToReducer = (mutator) => (oldState, action) => produce(oldState, newState => mutator(newState, action))
-
-module.exports = {
-  map: map,
-  reducer: reducer,
-  reduceAll: reduceAll,
-  mutatorToReducer: mutatorToReducer
-}
+module.exports = ReduxUtils
 

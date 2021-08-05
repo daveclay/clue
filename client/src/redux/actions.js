@@ -15,7 +15,7 @@ export const helloServer = () => ({
 })
 
 export const updatePlayerName = (name) => ({
-  type: 'updatePlayerName',
+  type: 'server/updatePlayerName',
   name: name
 })
 
@@ -24,10 +24,12 @@ export const addHumanPlayer = () => (dispatch, getState) => {
   if (getPlayerByName(state.players, state.addPlayerForm.name) != null) {
     alert(`There's already a player named ${state.addPlayerForm.name}`)
   } else {
+    // TODO: state.addPlayerForm.name = ""
     dispatch({
-      type: 'addHumanPlayer',
+      type: 'server/addHumanPlayer',
       player: {
-        human: true
+        human: true,
+        name: state.addPlayerForm.name
       }
     })
   }

@@ -5,8 +5,12 @@ const mutators = require("./mutators")
 const {
   mutatorToReducer,
   reduceAll,
+  reducer,
+  actionPrefix,
   map
 } = reduxUtils
+
+actionPrefix("server/")
 
 const {
   getCurrentTurnPlayerName,
@@ -80,7 +84,7 @@ const showCurrentPlayerNotification = state => ({
   }
 });
 
-map("server/hello", (state, action) => {
+map("hello", (state, action) => {
   console.log('Got hello data!', action)
   // TODO: ok, so this updates, but what does it return to the client?
   // TODO: ok, so it modifies some part of the state tree.

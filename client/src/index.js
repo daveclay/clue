@@ -26,9 +26,9 @@ ReactDOM.render(
 
 const steps = [
   () => helloServer(),
-  /*
   () => updatePlayerName("Jackson"),
   () => addHumanPlayer(),
+  /*
   () => updatePlayerName("Daddy"),
   () => addHumanPlayer(),
   () => addComputerPlayer(),
