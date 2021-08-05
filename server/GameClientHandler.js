@@ -1,6 +1,8 @@
 const redux = require("redux")
 const reduxUtils = require("redux-utils")
 const reducers = require("./reducers")
+const GameClient = require("./GameClient")
+
 const {
   reducer,
 } = reduxUtils
@@ -9,7 +11,8 @@ const {
   createStore
 } = redux
 
-class GameDAO {
+
+class GameClientHandler {
   initialState = {
     gameOver: false,
     computerPlayersEnabled: false,
@@ -103,17 +106,30 @@ class GameDAO {
     ]
   }
 
+  gameClients = []
+
   constructor(redis) {
     this.redis = redis
     this.store = createStore(reducer, this.initialState)
   }
 
-  dispatch(action) {
+  addSocketClient(socket) {
+    const gameClient = new GameClient(socket);
+    this.gameClients.push(gameClient)
+    socket.on('action', action => {
+      this.dispatchGameClientAction(gameClient, action)
+    })
+  }
+
+  dispatchGameClientAction(gameClient, action) {
+    // TODO: Probably add the gameClient to a clone of the action to dispatch? So that one client can't pretend its their turn?
     console.log(`action is`, action)
     this.store.dispatch(action)
     console.log("updated state: ", this.store.getState())
-    // TODO: this.state = updatedState
-    // TODO: emit!
+    // TODO: emit! What to emit? scope stuff? schema? Better state layout?
+    this.gameClients.forEach(gameClient =>
+      gameClient.update(gameClient.selectState(this.store.getState()))
+    )
     // TODO: some sort of "atomic" deconstruction of the updatedState and store in redis
   }
 
@@ -122,4 +138,4 @@ class GameDAO {
   }
 }
 
-module.exports = GameDAO
+module.exports = GameClientHandler

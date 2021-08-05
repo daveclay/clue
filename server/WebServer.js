@@ -9,7 +9,7 @@ class WebServer {
     this.port = options.port
   }
 
-  start(actionHandler) {
+  start(clientHandler) {
     const app = express()
     app.use(express.static(this.assetPath))
     app.get('*', (req, res) => {
@@ -24,14 +24,12 @@ class WebServer {
     })
 
     io.on('connection', socket => {
-      console.log("Socket connected: " + socket.id)
-      socket.on('action', action => {
-        actionHandler.dispatch(action)
-        socket.emit('action', {
-          type: "hello",
-          message:'good day!'
-        })
-      })
+      console.log("Socket connected", socket.id)
+      clientHandler.addSocketClient(socket)
+    })
+
+    io.on('disconnect', socket => {
+      console.log("Socket disconnected", socket.id)
     })
 
     httpServer.listen(this.port, () => {

@@ -1,7 +1,7 @@
 const path = require('path')
 
 const Redis = require("./Redis")
-const GameDAO = require("./GameDAO")
+const GameClientHandler = require("./GameClientHandler")
 const WebServer = require("./WebServer")
 
 const redis = new Redis({
@@ -9,12 +9,12 @@ const redis = new Redis({
   host: process.env.REDIS_URL || "localhost"
 })
 
-const gameDAO = new GameDAO(redis)
+const gameClientHandler = new GameClientHandler(redis)
 
 const webServer = new WebServer({
   assetPath: path.join(__dirname, '../client/build'),
   port: process.env.PORT || 4001
 })
 
-webServer.start(gameDAO)
+webServer.start(gameClientHandler)
 
