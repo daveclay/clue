@@ -33,9 +33,9 @@ class Mutators {
     let character = sample(availableCharacters)
     let playerIndex = state.players.length
     let player = {
-      ...action.player,
+      human: action.player.human,
+      name: action.player.name || character.name,
       id: playerIndex,
-      name: action.name || character.name,
       character: character,
       image: character.image,
       cards: []

@@ -104,7 +104,8 @@ class GameDAO {
 
   dispatch(action) {
     console.log(`action is`, action)
-    reducer(this.state, action)
+    let updatedState = reducer(this.state, action)
+    console.log("updated state: ", updatedState)
     // TODO: emit!
   }
 

@@ -15,7 +15,7 @@ export const helloServer = () => ({
 })
 
 export const updatePlayerName = (name) => ({
-  type: 'server/updatePlayerName',
+  type: 'updatePlayerName',
   name: name
 })
 

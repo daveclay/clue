@@ -120,5 +120,6 @@ const hello = (state, action) => ({
 
 map('init', init)
 map('hello', hello)
+map('updatePlayerName', updatePlayerName)
 
 export const rootReducer = reducer

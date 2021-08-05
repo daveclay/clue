@@ -29,15 +29,6 @@ const addPlayer = (state, action) => reduceAll(state,
   mutatorToReducer(state => mutators.addPlayer(state, action))
 )
 
-const updatePlayerName = (state, action) => {
-  return {
-    ...state,
-    addPlayerForm: {
-      name: action.name
-    }
-  }
-}
-
 const startGame = state => reduceAll(state,
   state => ({
     ...state,
@@ -86,14 +77,10 @@ const showCurrentPlayerNotification = state => ({
 
 map("hello", (state, action) => {
   console.log('Got hello data!', action)
-  // TODO: ok, so this updates, but what does it return to the client?
-  // TODO: ok, so it modifies some part of the state tree.
-  // then, the "framework" determines _what_ changed, and sends it back?
-  //
+  return state
 })
 map('startGame', startGame)
 map('enableComputerPlayers', enableComputerPlayers)
-map('updatePlayerName', updatePlayerName)
 map('addHumanPlayer', addPlayer)
 map('addComputerPlayer', addPlayer)
 map('onRoomSelected', selectRoom)
