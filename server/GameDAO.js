@@ -1,11 +1,16 @@
+const redux = require("redux")
 const reduxUtils = require("redux-utils")
 const reducers = require("./reducers")
 const {
-  reducer
+  reducer,
 } = reduxUtils
 
+const {
+  createStore
+} = redux
+
 class GameDAO {
-  state = {
+  initialState = {
     gameOver: false,
     computerPlayersEnabled: false,
     currentTurnPlayerIndex: -1,
@@ -100,13 +105,16 @@ class GameDAO {
 
   constructor(redis) {
     this.redis = redis
+    this.store = createStore(reducer, this.initialState)
   }
 
   dispatch(action) {
     console.log(`action is`, action)
-    let updatedState = reducer(this.state, action)
-    console.log("updated state: ", updatedState)
+    this.store.dispatch(action)
+    console.log("updated state: ", this.store.getState())
+    // TODO: this.state = updatedState
     // TODO: emit!
+    // TODO: some sort of "atomic" deconstruction of the updatedState and store in redis
   }
 
   hi() {

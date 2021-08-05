@@ -79,6 +79,7 @@ map("hello", (state, action) => {
   console.log('Got hello data!', action)
   return state
 })
+
 map('startGame', startGame)
 map('enableComputerPlayers', enableComputerPlayers)
 map('addHumanPlayer', addPlayer)

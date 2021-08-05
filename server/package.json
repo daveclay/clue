@@ -6,6 +6,7 @@
     "gh-pages": "^3.1.0",
     "immer": "^8.0.0",
     "redis": "^3.1.2",
+    "redux": "^4.0.5",
     "redux-utils": "file:../redux-utils",
     "socket.io": "^4.1.3",
     "web-vitals": "^0.2.4"
