@@ -77,7 +77,10 @@ const showCurrentPlayerNotification = state => ({
 
 map("hello", (state, action) => {
   console.log('Got hello data!', action)
-  return state
+  return {
+    ...state,
+    messageFromServer: "Hello from the server"
+  }
 })
 
 map('startGame', startGame)

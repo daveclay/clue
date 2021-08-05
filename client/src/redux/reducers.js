@@ -22,13 +22,7 @@ const updatePlayerName = (state, action) => {
 }
 const init = state => state
 
-const hello = (state, action) => ({
-  ...state,
-  messageFromServer: action.message
-})
-
 map('init', init)
-map('hello', hello)
 map('updatePlayerName', updatePlayerName)
 map('update', (state, action) => {
   return {
