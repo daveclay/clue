@@ -1,66 +1,72 @@
 /************************************************
  * Selectors
  ************************************************/
-const getPlayerCharacterNames = (players) => players.map(player => player.character.name)
-const getCurrentTurnPlayer = (state) => state.players[state.currentTurnPlayerIndex]
-const getCurrentTurnPlayerName = (state) => {
-  let currentTurnPlayer = getCurrentTurnPlayer(state)
-  if (currentTurnPlayer) {
-    return currentTurnPlayer.name
-  } else {
-    return null;
+class Selectors {
+  static getPlayerCharacterNames(players) {
+    return players.map(player => player.character.name)
   }
-}
-const isPlayerInRoom = (room, player) => room.playerNames.includes(player.name)
-const getRoomForPlayer = (state, player) => {
-  return state.rooms.find(room => isPlayerInRoom(room, player))
-}
-const isCurrentTurnPlayerInRoom = (state, room) => {
-  let currentTurnPlayer = getCurrentTurnPlayer(state)
-  if (currentTurnPlayer) {
-    let currentTurnPlayerRoom = getRoomForPlayer(state, currentTurnPlayer)
-    return currentTurnPlayerRoom && currentTurnPlayerRoom.name === room.name
-  } else {
-    return false
+
+  static getCurrentTurnPlayer(state) {
+    return state.players[state.currentTurnPlayerIndex]
   }
-}
 
-const getPlayerByName = (players, name) => players.find(player => player.name === name)
-
-module.exports = {
-  getPlayerCharacterNames: getPlayerCharacterNames,
-  getAvailableCharacters: (characters, players) => {
-    let playerCharacterNames = getPlayerCharacterNames(players)
-    return characters.filter(character => !playerCharacterNames.includes(character.name))
-  },
-  getPlayerByName: getPlayerByName,
-  getPlayersInRoom: (players, room) => room.playerNames.map(name => getPlayerByName(players, name)),
-  getCurrentTurnPlayer: getCurrentTurnPlayer,
-  getCurrentTurnPlayerName: getCurrentTurnPlayerName,
-  isCurrentTurnPlayer: (state, player) => getCurrentTurnPlayerName(state) === player.name,
-  isCurrentTurnPlayerInRoom: isCurrentTurnPlayerInRoom,
-  isCurrentTurnPlayerAbleToSelectRoom: (state, room) => {
-    let currentTurnPlayer = getCurrentTurnPlayer(state);
-    return currentTurnPlayer &&
-      !isCurrentTurnPlayerInRoom(state, room) &&
-      !state.gameOver &&
-      !state.emergencyMeetingStarted &&
-      currentTurnPlayer.human
-  },
-  isEmergencyButtonEnabled: state => {
-    let currentTurnPlayer = getCurrentTurnPlayer(state);
+  static getCurrentTurnPlayerName(state) {
+    let currentTurnPlayer = Selectors.getCurrentTurnPlayer(state)
     if (currentTurnPlayer) {
-      let room = getRoomForPlayer(state, currentTurnPlayer)
-      return currentTurnPlayer &&
-        currentTurnPlayer.human &&
-        !state.gameOver &&
-        room.emergencyButton
+      return currentTurnPlayer.name
+    } else {
+      return null;
+    }
+  }
+
+  static isPlayerInRoom(room, player) {
+    return room.playerNames.includes(player.name)
+  }
+
+  static getRoomForPlayer(state, player) {
+    return state.rooms.find(room => Selectors.isPlayerInRoom(room, player))
+  }
+
+  static isCurrentTurnPlayerInRoom(state, room) {
+    let currentTurnPlayer = Selectors.getCurrentTurnPlayer(state)
+    if (currentTurnPlayer) {
+      let currentTurnPlayerRoom = Selectors.getRoomForPlayer(state, currentTurnPlayer)
+      return currentTurnPlayerRoom && currentTurnPlayerRoom.name === room.name
     } else {
       return false
     }
-  },
-  getRoomByName: (state, roomName) => state.rooms.find(room => room.name === roomName),
-  getNextPlayerTurnIndex: (state) => {
+  }
+
+  static getPlayerByName(players, name) {
+    return players.find(player => player.name === name)
+  }
+
+  static getAvailableCharacters(characters, players) {
+    let playerCharacterNames = Selectors.getPlayerCharacterNames(players)
+    return characters.filter(character => !playerCharacterNames.includes(character.name))
+  }
+
+  static getPlayersInRoom(players, room) {
+    return room.playerNames.map(name => Selectors.getPlayerByName(players, name))
+  }
+  static isCurrentTurnPlayer(state, player) {
+    return Selectors.getCurrentTurnPlayerName(state) === player.name
+  }
+
+  static isCurrentTurnPlayerAbleToSelectRoom(state, room) {
+    let currentTurnPlayer = Selectors.getCurrentTurnPlayer(state)
+    return currentTurnPlayer &&
+    !Selectors.isCurrentTurnPlayerInRoom(state, room) &&
+    !state.gameOver &&
+    !state.emergencyMeetingStarted &&
+    currentTurnPlayer.human
+  }
+
+  static getRoomByName(state, roomName) {
+    return state.rooms.find(room => room.name === roomName)
+  }
+
+  static getNextPlayerTurnIndex(state)  {
     let nextIndex = state.currentTurnPlayerIndex + 1
     if (state.players.length === nextIndex) {
       return 0;
@@ -69,3 +75,5 @@ module.exports = {
     }
   }
 }
+
+module.exports = Selectors
