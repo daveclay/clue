@@ -5,7 +5,6 @@ const {
 } = reduxUtils
 
 class GameDAO {
-  actionHandlersByType = {}
   state = {
     gameOver: false,
     computerPlayersEnabled: false,
@@ -103,22 +102,10 @@ class GameDAO {
     this.redis = redis
   }
 
-  initialize() {
-    map("server/hello", action => {
-      console.log('Got hello data!', action.data)
-      // TODO: ok, so this updates, but what does it return to the client?
-      // TODO: ok, so it modifies some part of the state tree.
-      // then, the "framework" determines _what_ changed, and sends it back?
-      //
-    })
-
-    map("server/addHumanPlayer", action => {
-    })
-  }
-
   dispatch(action) {
     console.log(`action.type is ${action.type}`)
     reducer(this.state, action)
+    // TODO: emit!
   }
 
   hi() {

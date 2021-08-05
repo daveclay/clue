@@ -1,10 +1,38 @@
-import {mutatorToReducer, reduceAll} from "../redux-utils/utils.js";
-import {getCurrentTurnPlayerName, getNextPlayerTurnIndex} from "../redux-utils/selectors/selectors";
+const reduxUtils = require("redux-utils")
+const gameSelectors = require("game-selectors")
+const mutators = require("./mutators")
+
+const {
+  mutatorToReducer,
+  reduceAll,
+  map
+} = reduxUtils
+
+const {
+  getCurrentTurnPlayerName,
+  getNextPlayerTurnIndex
+} = gameSelectors
+
+const {
+  pickWhoDunnit,
+  distributeCards,
+  movePlayersToStartingPositions,
+  movePlayerToRoom,
+  moveCurrentPlayerToRoom,
+} = mutators
 
 const addPlayer = (state, action) => reduceAll(state,
-  mutatorToReducer(state => addPlayerMutator(state, action))
+  mutatorToReducer(state => mutators.addPlayer(state, action))
 )
 
+const updatePlayerName = (state, action) => {
+  return {
+    ...state,
+    addPlayerForm: {
+      name: action.name
+    }
+  }
+}
 
 const startGame = state => reduceAll(state,
   state => ({
@@ -52,6 +80,13 @@ const showCurrentPlayerNotification = state => ({
   }
 });
 
+map("server/hello", action => {
+  console.log('Got hello data!', action.data)
+  // TODO: ok, so this updates, but what does it return to the client?
+  // TODO: ok, so it modifies some part of the state tree.
+  // then, the "framework" determines _what_ changed, and sends it back?
+  //
+})
 map('startGame', startGame)
 map('enableComputerPlayers', enableComputerPlayers)
 map('updatePlayerName', updatePlayerName)

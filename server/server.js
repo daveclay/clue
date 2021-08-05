@@ -10,7 +10,6 @@ const redis = new Redis({
 })
 
 const gameDAO = new GameDAO(redis)
-gameDAO.initialize();
 
 const webServer = new WebServer({
   assetPath: path.join(__dirname, '../client/build'),
