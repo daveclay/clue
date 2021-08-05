@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  isCurrentTurnPlayer, isImposter,
-} from "../selectors/selectors"
+  isCurrentTurnPlayer
+} from "game-selectors"
 import {
 } from "../redux/actions";
 
-const getPlayerClassName = (isImposter, isCurrentTurn, celebrate) => {
-  if (isImposter && celebrate) {
+
+const getPlayerClassName = (isCurrentTurn, celebrate) => {
+  if (celebrate) {
     return "playerEjected"
   } else if (isCurrentTurn || celebrate) {
     return "turnHighlight"
@@ -21,7 +22,7 @@ const Player = ({
   player,
   isCurrentTurn,
 }) => (
-    <div className={`player ${getPlayerClassName(isImposter, isCurrentTurn, celebrate)}`}>
+    <div className={`player ${getPlayerClassName(isCurrentTurn, celebrate)}`}>
       <div>
         <div className="imageContainer">
           <img src={`character-images/${player.image}.png`}/>

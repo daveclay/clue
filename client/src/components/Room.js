@@ -4,10 +4,11 @@ import Player from "./Player";
 import {
   getPlayersInRoom,
   isCurrentTurnPlayerAbleToSelectRoom,
-} from "../selectors/selectors"
+} from "game-selectors"
 import {
   onRoomSelected,
 } from "../redux/actions";
+
 
 const Room = ({
   room,

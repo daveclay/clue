@@ -2,12 +2,12 @@ import {
   ArrayUtils,
   repeat,
   mutatorToReducer, times
-} from "../utils";
+} from "../redux-utils/utils.js";
 import {
   getAvailableCharacters,
   getCurrentTurnPlayer,
   getRoomByName,
-} from "../selectors/selectors";
+} from "../redux-utils/selectors/selectors";
 
 /************************************************
  * Mutators

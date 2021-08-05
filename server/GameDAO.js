@@ -113,13 +113,19 @@ class GameDAO {
   initialize() {
     this.map("server/hello").to(action => {
       console.log('Got hello data!', action.data)
+      // TODO: ok, so this updates, but what does it return to the client?
+      // TODO: ok, so it modifies some part of the state tree.
+      // then, the "framework" determines _what_ changed, and sends it back?
+      //
+    })
+    this.map("server/addHumanPlayer").to(action => {
     })
   }
 
   dispatch(action) {
     console.log(`action.type is ${action.type}`)
     const handler = this.actionHandlersByType[action.type]
-    handler(action)
+    handler(action) // this will mutate state, so record it?
   }
 
   hi() {

@@ -1,8 +1,9 @@
 import {
   getCurrentTurnPlayer,
   getPlayerByName,
-} from "../selectors/selectors";
-import {ArrayUtils} from "../utils";
+} from "game-selectors";
+import { sample } from "array-utils"
+
 
 export const init = () => ({
   type: 'init'
@@ -72,7 +73,7 @@ const dispatchNextTurn = (dispatch, getState) => {
 
 const doComputerPlayer = (dispatch, getState) => {
   setTimeout(() => {
-    const action = ArrayUtils.sample(getAvailableComputerActions(getState))
+    const action = sample(getAvailableComputerActions(getState))
     dispatch(action)
   }, 200)
 }
@@ -83,7 +84,7 @@ const getAvailableComputerActions = (getState) => {
 
 const moveToRandomRoom = (dispatch, getState) => {
   const state = getState()
-  const randomRoom = ArrayUtils.sample(state.rooms)
+  const randomRoom = sample(state.rooms)
   dispatch(onRoomSelected(randomRoom.name))
 }
 

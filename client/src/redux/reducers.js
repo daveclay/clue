@@ -1,15 +1,4 @@
-import * as actions from "./actions"
-import { map, reducer } from "./utils/redux-map";
-import { mutatorToReducer, ArrayUtils, reduceAll } from "../utils";
-import {
-  addPlayer as addPlayerMutator, distributeCards,
-  moveCurrentPlayerToRoom,
-  movePlayersToStartingPositions, pickWhoDunnit,
-} from "./mutators"
-import {
-  getCurrentTurnPlayerName,
-  getNextPlayerTurnIndex
-} from "../selectors/selectors"
+import { map, reducer } from "redux-utils";
 
 export const initialState = {
   gameOver: false,
@@ -122,41 +111,7 @@ const updatePlayerName = (state, action) => {
     }
   }
 }
-
-const addPlayer = (state, action) => reduceAll(state,
-  mutatorToReducer(state => addPlayerMutator(state, action))
-)
-
 const init = state => state
-
-const startGame = state => reduceAll(state,
-  state => ({
-    ...state,
-    gameOver: false,
-    victory: false
-  }),
-  resetCurrentTurnPlayerIndex,
-  mutatorToReducer(pickWhoDunnit),
-  mutatorToReducer(distributeCards),
-  mutatorToReducer(movePlayersToStartingPositions),
-)
-
-const selectRoom = (state, action) => reduceAll(state,
-  mutatorToReducer(state => moveCurrentPlayerToRoom(state, action.roomName)),
-)
-
-const nextPlayerTurn = state => reduceAll(state,
-  (state) => ({
-     ...state,
-     currentTurnPlayerIndex: getNextPlayerTurnIndex(state)
-   }),
-   showCurrentPlayerNotification
-)
-
-const enableComputerPlayers = state => ({
-  ...state,
-  computerPlayersEnabled: true,
-})
 
 const hello = (state, action) => ({
   ...state,
@@ -165,28 +120,5 @@ const hello = (state, action) => ({
 
 map('init', init)
 map('hello', hello)
-map('startGame', startGame)
-map('enableComputerPlayers', enableComputerPlayers)
-map('updatePlayerName', updatePlayerName)
-map('addHumanPlayer', addPlayer)
-map('addComputerPlayer', addPlayer)
-map('onRoomSelected', selectRoom)
-map('nextPlayerTurn', nextPlayerTurn)
-
-/************************************************
- * Other Reducers, Helpers, and Shared Reducer Methods
- ************************************************/
-const resetCurrentTurnPlayerIndex = state => ({
-  ...state,
-  currentTurnPlayerIndex: -1
-})
-
-const showCurrentPlayerNotification = state => ({
-  ...state,
-  notify: {
-    message: `${getCurrentTurnPlayerName(state)}'s turn!`,
-    className: "turn"
-  }
-});
 
 export const rootReducer = reducer

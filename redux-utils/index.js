@@ -1,4 +1,7 @@
-export class ReducerMap {
+const immer = require("immer")
+const produce = immer.produce
+
+class ReducerMap {
   constructor() {
     this.actionsToReducers = {}
     this.initialState = {}
@@ -34,11 +37,24 @@ export class ReducerMap {
 
 const reducerMap = new ReducerMap();
 
-export const map = (actionFn, reducer) => {
+const map = (actionFn, reducer) => {
   reducerMap.map(actionFn, reducer);
 }
 
-export function reducer(state = reducerMap.initialState, action) {
+const reducer = function reducer(state = reducerMap.initialState, action) {
   return reducerMap.reduce(state, action);
+}
+
+const reduceAll = (state, ...reducers) => {
+  return reducers.reduce((newState, reducer) => reducer(newState), state)
+}
+
+const mutatorToReducer = (mutator) => (oldState, action) => produce(oldState, newState => mutator(newState, action))
+
+module.exports = {
+  map: map,
+  reducer: reducer,
+  reduceAll: reduceAll,
+  mutatorToReducer: mutatorToReducer
 }
 

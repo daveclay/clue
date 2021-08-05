@@ -7,6 +7,8 @@
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
+    "array-utils": "file:../array-utils",
+    "game-selectors": "file:../game-selectors",
     "gh-pages": "^3.1.0",
     "immer": "^8.0.0",
     "react": "^17.0.1",
@@ -18,6 +20,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-socket.io": "^1.4.0",
     "redux-thunk": "^2.3.0",
+    "redux-utils": "file:../redux-utils",
     "socket.io-client": "^4.1.3"
   },
   "scripts": {

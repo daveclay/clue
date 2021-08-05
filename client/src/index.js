@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Hello from 'redux-utils'
 
 import { Provider } from 'react-redux'
 import store from './redux/store'
@@ -25,6 +26,7 @@ ReactDOM.render(
 
 const steps = [
   () => helloServer(),
+  /*
   () => updatePlayerName("Jackson"),
   () => addHumanPlayer(),
   () => updatePlayerName("Daddy"),
@@ -35,6 +37,7 @@ const steps = [
   () => enableComputerPlayers(),
   () => onRoomSelected("Kitchen"), // Jackson
   () => onRoomSelected("Library"), // Daddy
+   */
 ]
 let currentStepIndex = 0;
 let runStep = () => {
