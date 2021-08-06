@@ -12,6 +12,7 @@ import {
   helloServer,
   onRoomSelected,
   startGame,
+  resetGame,
   updatePlayerName,
 } from "./redux/actions";
 
@@ -24,6 +25,7 @@ ReactDOM.render(
 )
 
 const steps = [
+  () => resetGame(),
   () => helloServer(),
   () => updatePlayerName("Jackson"),
   () => addHumanPlayer(),

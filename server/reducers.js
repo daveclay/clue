@@ -1,4 +1,5 @@
 const GameSelectors = require("game-selectors")
+const GameState = require('./GameState')
 const ArrayUtils = require("array-utils")
 
 const {getCurrentTurnPlayer} = GameSelectors
@@ -84,6 +85,7 @@ reducers.map('startGame', state => reduceAll(state,
   mutatorToReducer(distributeCards),
   mutatorToReducer(movePlayersToStartingPositions),
 ))
+reducers.map('resetGame', state => GameState)
 
 reducers.map('enableComputerPlayers', enableComputerPlayers)
 reducers.map('addHumanPlayer', addPlayer)

@@ -47,6 +47,9 @@ export const nextPlayerTurn = () => ({
 export const startGame = () => ({
   type: 'server/startGame'
 })
+export const resetGame = () => ({
+  type: 'server/resetGame'
+})
 export const enableComputerPlayers = () => ({
   type: 'server/enableComputerPlayers'
 })
