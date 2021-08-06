@@ -40,6 +40,8 @@ const steps = [
   () => onRoomSelected("Library"), // Daddy
    */
 ]
+
+let intervalId;
 let currentStepIndex = 0;
 let runStep = () => {
   console.log(steps[currentStepIndex])
@@ -50,7 +52,12 @@ let runStep = () => {
   }
 }
 
-let intervalId = setInterval(() => runStep(), 100)
+const urlParams = new URLSearchParams(window.location.search);
+const myParam = urlParams.get('run');
+
+if (myParam) {
+  intervalId = setInterval(() => runStep(), 100)
+}
 
 
 
