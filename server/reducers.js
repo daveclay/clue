@@ -2,9 +2,6 @@ const GameSelectors = require("game-selectors")
 const GameState = require('./GameState')
 const ArrayUtils = require("array-utils")
 
-const {getCurrentTurnPlayer} = GameSelectors
-const {sample} = ArrayUtils
-
 const reduxUtils = require("redux-utils")
 const gameSelectors = require("game-selectors")
 const mutators = require("./mutators")
@@ -83,49 +80,16 @@ reducers.map('startGame', state => reduceAll(state,
   resetCurrentTurnPlayerIndex,
   mutatorToReducer(pickWhoDunnit),
   mutatorToReducer(distributeCards),
-  mutatorToReducer(movePlayersToStartingPositions),
+  mutatorToReducer(movePlayersToStartingPositions)
 ))
-reducers.map('resetGame', state => GameState)
 
+reducers.map('resetGame', state => GameState)
 reducers.map('enableComputerPlayers', enableComputerPlayers)
 reducers.map('addHumanPlayer', addPlayer)
 reducers.map('addComputerPlayer', addPlayer)
 reducers.map('onRoomSelected', selectRoom)
 reducers.map('nextPlayerTurn', nextPlayerTurn)
 
-
-/************************************************
- * Helpers/Shared Actions
- ************************************************/
-const dispatchNextTurn = (dispatch, getState) => {
-  dispatch(nextPlayerTurn())
-  const state = getState()
-  const player = getCurrentTurnPlayer(state)
-  if (!player.human && state.computerPlayersEnabled) {
-    doComputerPlayer(dispatch, getState)
-  }
-}
-
-const doComputerPlayer = (dispatch, getState) => {
-  setTimeout(() => {
-    const action = sample(getAvailableComputerActions(getState))
-    dispatch(action)
-  }, 200)
-}
-
-const getAvailableComputerActions = (getState) => {
-  return computerActions
-}
-
-const moveToRandomRoom = (dispatch, getState) => {
-  const state = getState()
-  const randomRoom = sample(state.rooms)
-  // TODO: dispatch(onRoomSelected(randomRoom.name))
-}
-
-const computerActions = [
-  moveToRandomRoom
-]
 
 module.exports = reducers
 

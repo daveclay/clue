@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
     "array-utils": "file:../array-utils",
+    "game-client-actions": "file:../game-client-actions",
     "game-selectors": "file:../game-selectors",
     "gh-pages": "^3.1.0",
     "immer": "^8.0.0",

@@ -7,12 +7,15 @@ import App from './components/App'
 
 import {
   addComputerPlayer,
-  addHumanPlayer,
   enableComputerPlayers,
   helloServer,
   onRoomSelected,
   startGame,
   resetGame,
+} from "game-client-actions";
+
+import {
+  addHumanPlayer,
   updatePlayerName,
 } from "./redux/actions";
 

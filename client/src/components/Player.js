@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import {
   isCurrentTurnPlayer
 } from "game-selectors"
-import {
-} from "../redux/actions";
 
 
 const getPlayerClassName = (isCurrentTurn, celebrate) => {

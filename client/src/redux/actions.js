@@ -1,15 +1,9 @@
 import {
-  getCurrentTurnPlayer,
   getPlayerById,
 } from "game-selectors";
 
 export const init = () => ({
   type: 'init'
-})
-
-export const helloServer = () => ({
-  type: 'server/hello',
-  data:'Hello!'
 })
 
 export const updatePlayerName = (name) => ({
@@ -34,27 +28,3 @@ export const addHumanPlayer = () => (dispatch, getState) => {
     })
   }
 }
-
-export const addComputerPlayer = () => ({
-  type: 'server/addComputerPlayer',
-  player: {
-    human: false
-  }
-})
-export const nextPlayerTurn = () => ({
-  type: 'server/nextPlayerTurn'
-})
-export const startGame = () => ({
-  type: 'server/startGame'
-})
-export const resetGame = () => ({
-  type: 'server/resetGame'
-})
-export const enableComputerPlayers = () => ({
-  type: 'server/enableComputerPlayers'
-})
-export const onRoomSelected = (roomName) => ({
-  type: 'server/onRoomSelected',
-  roomName
-})
-

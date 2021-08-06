@@ -7,7 +7,7 @@ import {
 } from "game-selectors"
 import {
   onRoomSelected,
-} from "../redux/actions";
+} from "game-client-actions";
 
 
 const Room = ({
