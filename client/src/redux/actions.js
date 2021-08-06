@@ -1,6 +1,6 @@
 import {
   getCurrentTurnPlayer,
-  getPlayerByName,
+  getPlayerById,
 } from "game-selectors";
 
 export const init = () => ({
@@ -19,7 +19,7 @@ export const updatePlayerName = (name) => ({
 
 export const addHumanPlayer = () => (dispatch, getState) => {
   const state = getState()
-  if (getPlayerByName(state.players, state.client.addPlayerForm.name) != null) {
+  if (getPlayerById(state.players, state.client.addPlayerForm.name) != null) {
     alert(`There's already a player named ${state.client.addPlayerForm.name}`)
   } else {
     dispatch({

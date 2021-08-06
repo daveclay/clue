@@ -1,6 +1,7 @@
 const redux = require("redux")
 const reducers = require("./reducers")
 const GameClient = require("./GameClient")
+const GameState = require("./GameState")
 
 const {
   createStore
@@ -8,99 +9,7 @@ const {
 
 
 class GameClientHandler {
-  initialState = {
-    gameOver: false,
-    computerPlayersEnabled: false,
-    currentTurnPlayerIndex: -1,
-    computerPlayers: [],
-    players: [],
-    whoDunnit: null,
-    characters: [
-      {
-        name: "Miss Scarlett",
-        image: "pink"
-      },
-      {
-        name: "Mr. Green",
-        image: "green"
-      },
-      {
-        name: "Colonel Mustard",
-        image: "orange"
-      },
-      {
-        name: "Professor Plum",
-        image: "blue"
-      },
-      {
-        name: "Mrs. Peacock",
-        image: "lightblue"
-      },
-      {
-        name: "Mrs. White",
-        image: "white"
-      }
-    ],
-    weapons: [
-      {
-        name: "Candlestick"
-      },
-      {
-        name: "Dagger"
-      },
-      {
-        name: "Lead Pipe"
-      },
-      {
-        name: "Revolver"
-      },
-      {
-        name: "Rope"
-      },
-      {
-        name: "Wrench"
-      }
-    ],
-    rooms: [
-      {
-        name: "Kitchen",
-        playerNames: [],
-      },
-      {
-        name: "Ballroom",
-        playerNames: [],
-      },
-      {
-        name: "Conservatory",
-        playerNames: [],
-      },
-      {
-        name: "Billiard Room",
-        playerNames: [],
-      },
-      {
-        name: "Library",
-        playerNames: [],
-      },
-      {
-        name: "Study",
-        playerNames: [],
-      },
-      {
-        name: "Hall",
-        playerNames: [],
-      },
-      {
-        name: "Lounge",
-        playerNames: [],
-      },
-      {
-        name: "Dining Room",
-        playerNames: [],
-      },
-    ]
-  }
-
+  initialState = GameState
   gameClients = []
 
   constructor(redis) {

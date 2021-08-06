@@ -13,7 +13,6 @@ const {
   reduceAll,
   Reducers,
 } = reduxUtils
-
 const reducers = new Reducers({
   actionPrefix: "server/"
 })
@@ -52,10 +51,6 @@ const enableComputerPlayers = state => ({
   computerPlayersEnabled: true,
 })
 
-
-/************************************************
- * Other Reducers, Helpers, and Shared Reducer Methods
- ************************************************/
 
 // TODO: integrate this someplace.
 const resetCurrentTurnPlayerIndex = state => ({

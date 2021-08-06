@@ -26,6 +26,7 @@ class Mutators {
   static addPlayer(state, action) {
     let availableCharacters = getAvailableCharacters(state.characters, state.players)
     if (availableCharacters.size == 0) {
+      // TODO: dork this is the server. Gotta set the error notify message to the state and send it back.
       alert("No more characters available!")
       return state;
     }
@@ -37,15 +38,15 @@ class Mutators {
       name: action.player.name || character.name,
       id: playerIndex,
       character: character,
-      image: character.image,
-      cards: []
+      image: character.image
     }
-    state.players[state.players.length] = player
+
+    state.players[playerIndex] = player
     Mutators.movePlayerToRoom(state, player, "Hall")
   }
 
   static movePlayersToStartingPositions(state) {
-    //state.rooms.forEach(room => room.playerNames = []);
+    //state.rooms.forEach(room => room.layerNames = []);
   }
 
   static distributeCards(state) {
@@ -57,6 +58,8 @@ class Mutators {
 
     let numPlayers = state.players.length
 
+    state.players.forEach(player => state.playerCardsByPlayerId[player.id] = { cards: [] })
+
     times(availableCards.length)(index => {
       let playerIndex = index % numPlayers
       let player = state.players[playerIndex]
@@ -65,7 +68,8 @@ class Mutators {
         ...pluckRandom(availableCards)
       }
 
-      player.cards = [...player.cards, card]
+      let cards = state.playerCardsByPlayerId[player.id].cards
+      state.playerCardsByPlayerId[player.id].cards = [...cards, card]
     })
   }
 
@@ -77,16 +81,16 @@ class Mutators {
     }
   }
 
-  static leaveCurrentRoom(state, playerNameToRemove) {
+  static leaveCurrentRoom(state, playerToRemove) {
     state.rooms.forEach(room => {
-      room.playerNames = allExcept(room.playerNames, playerNameToRemove);
+      room.playerIds = allExcept(room.playerIds, playerToRemove.id);
     })
   }
 
   static movePlayerToRoom(state, player, roomName) {
-    Mutators.leaveCurrentRoom(state, player.name)
+    Mutators.leaveCurrentRoom(state, player)
     let newRoom = getRoomByName(state, roomName);
-    newRoom.playerNames[newRoom.playerNames.length] = player.name
+    newRoom.playerIds[newRoom.playerIds.length] = player.id
   }
 
   static moveCurrentPlayerToRoom(state, roomName) {

@@ -20,7 +20,7 @@ class Selectors {
   }
 
   static isPlayerInRoom(room, player) {
-    return room.playerNames.includes(player.name)
+    return room.playerIds.includes(player.id)
   }
 
   static getRoomForPlayer(state, player) {
@@ -37,8 +37,8 @@ class Selectors {
     }
   }
 
-  static getPlayerByName(players, name) {
-    return players.find(player => player.name === name)
+  static getPlayerById(players, id) {
+    return players.find(player => player.id === id)
   }
 
   static getAvailableCharacters(characters, players) {
@@ -47,7 +47,7 @@ class Selectors {
   }
 
   static getPlayersInRoom(players, room) {
-    return room.playerNames.map(name => Selectors.getPlayerByName(players, name))
+    return room.playerIds.map(id => Selectors.getPlayerById(players, id))
   }
   static isCurrentTurnPlayer(state, player) {
     return Selectors.getCurrentTurnPlayerName(state) === player.name
