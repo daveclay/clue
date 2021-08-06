@@ -1,14 +1,15 @@
 const GameSelectors = require('game-selectors')
 const ArrayUtils = require("array-utils")
+const GameClientActions = require("game-client-actions")
 
 const {getCurrentTurnPlayer} = GameSelectors
 const {sample} = ArrayUtils
 
-const Actions = {
+const Actions = Object.assign(GameClientActions, {
   nextPlayerTurn: () => ({
     type: 'nextPlayerTurn'
   })
-}
+})
 
 module.exports = Actions
 

@@ -11,6 +11,8 @@ const {
   reduceAll,
   Reducers,
 } = reduxUtils
+
+// TODO: remove this, the prefix shold be removed from the game handler
 const reducers = new Reducers({
   actionPrefix: "server/"
 })
