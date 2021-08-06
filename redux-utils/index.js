@@ -1,10 +1,9 @@
 const immer = require("immer")
 const produce = immer.produce
 
-class ReducerMap {
+class ActionToReducerMap {
   constructor() {
     this.actionsToReducers = {}
-    this.initialState = {}
   }
 
   map(actionFn, reducer) {
@@ -41,29 +40,34 @@ class ReducerMap {
   }
 }
 
-const reducerMap = new ReducerMap()
-
-class ReduxUtils {
-  static map(actionFn, reducer) {
-    reducerMap.map(actionFn, reducer)
+class Reducers {
+  constructor(options = {}) {
+    this.reducerMap = new ActionToReducerMap()
+    this.initialState = options.initialState || {}
+    if (options.actionPrefix) {
+      this.reducerMap.setActionPrefix(options.actionPrefix)
+    }
   }
 
-  static actionPrefix(prefix) {
-    reducerMap.setActionPrefix(prefix)
+  map(actionFn, reducer) {
+    this.reducerMap.map(actionFn, reducer)
   }
 
-  static reducer(state = reducerMap.initialState, action) {
-    return reducerMap.reduce(state, action);
-  }
-
-  static reduceAll(state, ...reducers) {
-    return reducers.reduce((newState, reducer) => reducer(newState), state)
-  }
-
-  static mutatorToReducer(mutator) {
-    return (oldState, action) => produce(oldState, newState => mutator(newState, action))
+  getReduxReducerFunction() {
+    return (state = this.initialState, action) => {
+      return this.reducerMap.reduce(state, action);
+    }
   }
 }
 
-module.exports = ReduxUtils
+module.exports = {
+  Reducers: Reducers,
+  reduceAll: (state, ...reducers) => {
+    return reducers.reduce((newState, reducer) => reducer(newState), state)
+  },
+
+  mutatorToReducer: (mutator) => {
+    return (oldState, action) => produce(oldState, newState => mutator(newState, action))
+  }
+}
 

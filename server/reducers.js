@@ -11,12 +11,12 @@ const mutators = require("./mutators")
 const {
   mutatorToReducer,
   reduceAll,
-  reducer,
-  actionPrefix,
-  map
+  Reducers,
 } = reduxUtils
 
-actionPrefix("server/")
+const reducers = new Reducers({
+  actionPrefix: "server/"
+})
 
 const {
   getCurrentTurnPlayerName,
@@ -71,7 +71,7 @@ const showCurrentPlayerNotification = state => ({
   }
 });
 
-map("hello", (state, action) => {
+reducers.map("hello", (state, action) => {
   console.log('Got hello data!', action)
   return {
     ...state,
@@ -79,7 +79,7 @@ map("hello", (state, action) => {
   }
 })
 
-map('startGame', state => reduceAll(state,
+reducers.map('startGame', state => reduceAll(state,
   state => ({
     ...state,
     gameOver: false
@@ -90,11 +90,11 @@ map('startGame', state => reduceAll(state,
   mutatorToReducer(movePlayersToStartingPositions),
 ))
 
-map('enableComputerPlayers', enableComputerPlayers)
-map('addHumanPlayer', addPlayer)
-map('addComputerPlayer', addPlayer)
-map('onRoomSelected', selectRoom)
-map('nextPlayerTurn', nextPlayerTurn)
+reducers.map('enableComputerPlayers', enableComputerPlayers)
+reducers.map('addHumanPlayer', addPlayer)
+reducers.map('addComputerPlayer', addPlayer)
+reducers.map('onRoomSelected', selectRoom)
+reducers.map('nextPlayerTurn', nextPlayerTurn)
 
 
 /************************************************
@@ -129,4 +129,6 @@ const moveToRandomRoom = (dispatch, getState) => {
 const computerActions = [
   moveToRandomRoom
 ]
+
+module.exports = reducers
 

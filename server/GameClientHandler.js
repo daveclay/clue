@@ -1,12 +1,6 @@
 const redux = require("redux")
-const reduxUtils = require("redux-utils")
-// TODO: weird to import this to get things to run but nt need it. Change to Class/constructor/init
 const reducers = require("./reducers")
 const GameClient = require("./GameClient")
-
-const {
-  reducer,
-} = reduxUtils
 
 const {
   createStore
@@ -111,7 +105,7 @@ class GameClientHandler {
 
   constructor(redis) {
     this.redis = redis
-    this.store = createStore(reducer, this.initialState)
+    this.store = createStore(reducers.getReduxReducerFunction(), this.initialState)
   }
 
   addSocketClient(socket) {

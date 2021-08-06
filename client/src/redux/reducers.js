@@ -1,4 +1,8 @@
-import { map, reducer } from "redux-utils";
+import {
+  Reducers
+} from "redux-utils";
+
+const reducers = new Reducers()
 
 export const initialState = {
   client: {
@@ -12,8 +16,8 @@ export const initialState = {
   players: []
 }
 
-map('init', state => state)
-map('updatePlayerName', (state, action) => {
+reducers.map('init', state => state)
+reducers.map('updatePlayerName', (state, action) => {
   return {
     ...state,
     addPlayerForm: {
@@ -22,14 +26,14 @@ map('updatePlayerName', (state, action) => {
   }
 })
 
-map('update', (state, action) => {
+reducers.map('update', (state, action) => {
   return {
     ...state,
     ...action.state
   }
 })
 
-map("clearPlayerFormName", state => {
+reducers.map("clearPlayerFormName", state => {
   return {
     ...state,
     addPlayerForm: {
@@ -38,4 +42,4 @@ map("clearPlayerFormName", state => {
   }
 })
 
-export const rootReducer = reducer
+export const rootReducer = reducers.getReduxReducerFunction()
