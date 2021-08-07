@@ -1,12 +1,15 @@
 const GameSelectors = require('game-selectors')
 const ArrayUtils = require("array-utils")
-const GameClientActions = require("game-client-actions")
+const GameClientActionCreators = require("game-client-action-creators")
 
 const {getCurrentTurnPlayer} = GameSelectors
 const {sample} = ArrayUtils
 
 const Actions = {
-  ...GameClientActions,
+  startGame: (clientAction, dispatch, getState) => {
+    dispatch(clientAction)
+    dispatchNextTurn(dispatch, getState)
+  },
   nextPlayerTurn: () => ({
     type: 'nextPlayerTurn'
   })
@@ -17,7 +20,6 @@ module.exports = Actions
 /************************************************
  * Helpers/Shared Actions
  ************************************************/
-// TODO: see, this is an interesting problem. In the client, you can dispatch multiple actions when firing _one_ action. On the server, you're getting _one_ action to dispatch.
 const dispatchNextTurn = (dispatch, getState) => {
   dispatch(Actions.nextPlayerTurn())
   const state = getState()
@@ -41,7 +43,7 @@ const getAvailableComputerActions = (getState) => {
 const moveToRandomRoom = (dispatch, getState) => {
   const state = getState()
   const randomRoom = sample(state.rooms)
-  // TODO: dispatch(onRoomSelected(randomRoom.name))
+  dispatch(GameClientActionCreators.onRoomSelected(randomRoom.name))
 }
 
 const computerActions = [

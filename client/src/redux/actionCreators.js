@@ -3,7 +3,7 @@ import {
 } from "game-selectors";
 import {
   addHumanPlayer as addHumanPlayerServerAction
-} from "game-client-actions"
+} from "game-client-action-creators"
 
 export const init = () => ({
   type: 'init'

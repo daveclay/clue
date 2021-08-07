@@ -1,5 +1,5 @@
 {
-  "name": "game-client-actions",
+  "name": "game-client-action-creators",
   "homepage": ".",
   "version": "0.1.0",
   "main": "src/index.js"

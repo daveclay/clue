@@ -58,7 +58,7 @@ class Mutators {
 
     let numPlayers = state.players.length
 
-    state.players.forEach(player => state.playerCardsByPlayerId[player.id] = { cards: [] })
+    state.players.forEach(player => state.playerCardsByPlayerId[player.id] = [])
 
     times(availableCards.length)(index => {
       let playerIndex = index % numPlayers
@@ -68,8 +68,8 @@ class Mutators {
         ...pluckRandom(availableCards)
       }
 
-      let cards = state.playerCardsByPlayerId[player.id].cards
-      state.playerCardsByPlayerId[player.id].cards = [...cards, card]
+      let cards = state.playerCardsByPlayerId[player.id]
+      state.playerCardsByPlayerId[player.id] = [...cards, card]
     })
   }
 
