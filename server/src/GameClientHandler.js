@@ -3,10 +3,21 @@ const reducers = require("./reducers")
 const GameClient = require("./GameClient")
 const GameState = require("./GameState")
 const Actions = require("./actions")
+const GameClientActions = require("game-client-actions")
 
 const {
   createStore
 } = redux
+
+const translateClientActionToServerAction = action => {
+  let serverActionFn = GameClientActions[action.type]
+  if (serverActionFn) {
+    return {
+      type: action.type,
+      ...action.payload // TODO: can you hack this? Send whatever you want?
+    }
+  }
+}
 
 class GameClientHandler {
   initialState = GameState
@@ -35,17 +46,23 @@ class GameClientHandler {
       this.store.dispatch(action)
     }
 
-    // TODO: store history of actions for replays. IF the clietn isn't doing much, then should redux span both client _and_ server or just have the client send events/messages to the server?
-    dispatch(action)
+    let serverAction = translateClientActionToServerAction(action)
+    if (serverAction) {
+      dispatch({
+        type: action.type,
+        ...action.payload // TODO: can you hack this? Send whatever you want?
+      })
 
-    // TODO: store game state as a log?
-    console.log("updated state: ", this.store.getState())
-    // TODO: some sort of "atomic" deconstruction of the updatedState and store in redis
+      // TODO: store game state as a log?
+      console.log("updated state: ", this.store.getState())
 
-    // TODO: emit! What to emit? scope stuff? schema? Better state layout?
-    this.gameClients.forEach(gameClient =>
-      gameClient.update(gameClient.selectState(this.store.getState()))
-    )
+      // TODO: some sort of "atomic" deconstruction of the updatedState and store in redis
+      // save(state)
+
+      this.gameClients.forEach(gameClient =>
+        gameClient.update(gameClient.selectState(this.store.getState()))
+      )
+    }
   }
 
   hi() {

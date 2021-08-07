@@ -12,10 +12,7 @@ const {
   Reducers,
 } = reduxUtils
 
-// TODO: remove this, the prefix shold be removed from the game handler
-const reducers = new Reducers({
-  actionPrefix: "server/"
-})
+const reducers = new Reducers()
 
 const {
   getCurrentTurnPlayerName,

@@ -1,33 +1,59 @@
 /************************************************
  * GameClientActions
  ************************************************/
-module.exports = {
+
+const Actions = {
   helloServer: () => ({
-    type: 'server/hello',
-    data:'Hello!'
+    type: 'hello',
+    server: true,
+    payload: {
+      data:'Hello!'
+    }
+  }),
+
+  addHumanPlayer: name => ({
+    type: 'addHumanPlayer',
+    server: true,
+    payload: {
+      player: {
+        human: true,
+        name: name
+      }
+    }
   }),
 
   addComputerPlayer: () => ({
-    type: 'server/addComputerPlayer',
-    player: {
-      human: false
+    type: 'addComputerPlayer',
+    server: true,
+    payload: {
+      player: {
+        human: false
+      }
     }
   }),
 
   startGame: () => ({
-    type: 'server/startGame'
+    type: 'startGame',
+    server: true,
   }),
 
   resetGame: () => ({
-    type: 'server/resetGame'
+    type: 'resetGame',
+    server: true,
   }),
 
   enableComputerPlayers: () => ({
-    type: 'server/enableComputerPlayers'
+    type: 'enableComputerPlayers',
+    server: true
   }),
 
   onRoomSelected: (roomName) => ({
-    type: 'server/onRoomSelected',
-    roomName
+    type: 'onRoomSelected',
+    server: true,
+    payload: {
+      roomName
+    }
   })
 }
+
+module.exports = Actions

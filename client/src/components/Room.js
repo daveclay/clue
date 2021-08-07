@@ -5,10 +5,8 @@ import {
   getPlayersInRoom,
   isCurrentTurnPlayerAbleToSelectRoom,
 } from "game-selectors"
-import {
-  onRoomSelected,
-} from "game-client-actions";
 
+import { onRoomSelected } from "game-client-actions";
 
 const Room = ({
   room,

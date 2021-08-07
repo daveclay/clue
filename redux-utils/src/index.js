@@ -8,9 +8,6 @@ class ActionToReducerMap {
 
   map(actionFn, reducer) {
     let actionName = (typeof actionFn === 'function') ? actionFn.name : actionFn
-    if (this.actionPrefix != null) {
-      actionName = this.actionPrefix + actionName
-    }
 
     if (!this.actionsToReducers[actionName]) {
       this.actionsToReducers[actionName] = [];
@@ -34,19 +31,12 @@ class ActionToReducerMap {
       return [];
     }
   }
-
-  setActionPrefix(prefix) {
-    this.actionPrefix = prefix
-  }
 }
 
 class Reducers {
   constructor(options = {}) {
     this.reducerMap = new ActionToReducerMap()
     this.initialState = options.initialState || {}
-    if (options.actionPrefix) {
-      this.reducerMap.setActionPrefix(options.actionPrefix)
-    }
   }
 
   map(actionFn, reducer) {

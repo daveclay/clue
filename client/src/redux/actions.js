@@ -1,6 +1,9 @@
 import {
   getPlayerById,
 } from "game-selectors";
+import {
+  addHumanPlayer as addHumanPlayerServerAction
+} from "game-client-actions"
 
 export const init = () => ({
   type: 'init'
@@ -19,12 +22,6 @@ export const addHumanPlayer = () => (dispatch, getState) => {
     dispatch({
       type: "clearPlayerFormName"
     })
-    dispatch({
-      type: 'server/addHumanPlayer',
-      player: {
-        human: true,
-        name: state.client.addPlayerForm.name
-      }
-    })
+    dispatch(addHumanPlayerServerAction(state.client.addPlayerForm.name))
   }
 }
