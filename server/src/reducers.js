@@ -12,8 +12,6 @@ const {
   Reducers,
 } = reduxUtils
 
-const reducers = new Reducers()
-
 const {
   getCurrentTurnPlayerName,
   getNextPlayerTurnIndex
@@ -26,6 +24,11 @@ const {
   movePlayerToRoom,
   moveCurrentPlayerToRoom,
 } = mutators
+
+/************************************************
+ * Reducers
+ ************************************************/
+const reducers = new Reducers()
 
 const addPlayer = (state, action) => reduceAll(state,
   mutatorToReducer(state => mutators.addPlayer(state, action))
@@ -91,4 +94,3 @@ reducers.map('nextPlayerTurn', nextPlayerTurn)
 
 
 module.exports = reducers
-

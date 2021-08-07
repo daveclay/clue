@@ -4,9 +4,16 @@ const GameClientActionCreators = require("game-client-action-creators")
 
 const {getCurrentTurnPlayer} = GameSelectors
 const {sample} = ArrayUtils
+/************************************************
+ * Helpers/Shared ServerActionCreators
+ ************************************************/
 
-const Actions = {
+const ServerActionCreators = {
   startGame: (clientAction, dispatch, getState) => {
+    dispatch(clientAction)
+    dispatchNextTurn(dispatch, getState)
+  },
+  onRoomSelected: (clientAction, dispatch, getState) => {
     dispatch(clientAction)
     dispatchNextTurn(dispatch, getState)
   },
@@ -15,29 +22,25 @@ const Actions = {
   })
 }
 
-module.exports = Actions
-
-/************************************************
- * Helpers/Shared Actions
- ************************************************/
 const dispatchNextTurn = (dispatch, getState) => {
-  dispatch(Actions.nextPlayerTurn())
+  dispatch(ServerActionCreators.nextPlayerTurn())
   const state = getState()
   const player = getCurrentTurnPlayer(state)
-  if (!player.human && state.computerPlayersEnabled) {
+  if (!player.human) {
     doComputerPlayer(dispatch, getState)
   }
 }
 
 const doComputerPlayer = (dispatch, getState) => {
   setTimeout(() => {
-    const action = sample(getAvailableComputerActions(getState))
-    dispatch(action)
+    const actionCreatorFunctions = sample(getAvailableComputerActionCreatorFunctions(getState))
+    actionCreatorFunctions(dispatch, getState)
+    dispatchNextTurn(dispatch, getState)
   }, 200)
 }
 
-const getAvailableComputerActions = (getState) => {
-  return computerActions
+const getAvailableComputerActionCreatorFunctions = (getState) => {
+  return computerActionCreatorFunctions
 }
 
 const moveToRandomRoom = (dispatch, getState) => {
@@ -46,7 +49,8 @@ const moveToRandomRoom = (dispatch, getState) => {
   dispatch(GameClientActionCreators.onRoomSelected(randomRoom.name))
 }
 
-const computerActions = [
+const computerActionCreatorFunctions = [
   moveToRandomRoom
 ]
 
+module.exports = ServerActionCreators

@@ -1,4 +1,4 @@
-const ServerActionCreators = require("./actions")
+const ServerActionCreators = require("./ServerActionCreators")
 const GameClientActionCreators = require("game-client-action-creators")
 
 const validateGameClientAction = clientAction => GameClientActionCreators[clientAction.type] != null
