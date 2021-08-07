@@ -2,33 +2,11 @@ const redux = require("redux")
 const reducers = require("./reducers")
 const GameClient = require("./GameClient")
 const GameState = require("./GameState")
-const ServerActionCreators = require("./actions")
-const GameClientActionCreators = require("game-client-action-creators")
+const gameClientDispatcher = require("./gameClientDispatcher")
 
 const {
   createStore
 } = redux
-
-const validateGameClientAction = clientAction => GameClientActionCreators[clientAction.type] != null
-
-const dispatchGameClientAction = (clientAction, dispatch, getState) => {
-  if (validateGameClientAction(clientAction)) {
-    if (ServerActionCreators[clientAction.type]) {
-      const serverActionCreator = ServerActionCreators[clientAction.type]
-      if (typeof serverActionCreator === 'function') {
-        serverActionCreator(clientAction, dispatch, getState)
-      } else {
-        dispatch(serverActionCreator(clientAction))
-      }
-    } else {
-      dispatch(clientAction)
-    }
-    return true
-  } else {
-    console.warn(`action ${clientAction.type} is not in ${GameClientActionCreators} - ignoring`)
-    return false
-  }
-}
 
 class GameClientHandler {
   initialState = GameState
@@ -57,7 +35,7 @@ class GameClientHandler {
       this.store.dispatch(action)
     }
 
-    if (dispatchGameClientAction(action, dispatch, getState)) {
+    if (gameClientDispatcher(action, dispatch, getState)) {
       // TODO: store game state as a log?
       console.log("updated state: ", this.store.getState())
 
