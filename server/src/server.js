@@ -4,10 +4,7 @@ const RedisClient = require("./RedisClient")
 const GameClientHandler = require("./GameClientHandler")
 const WebServer = require("./WebServer")
 
-const redisClient = new RedisClient({
-  port: 6379,
-  host: process.env.REDIS_URL || "localhost"
-})
+const redisClient = new RedisClient(process.env.REDIS_URL || "localhost:6379")
 
 const gameClientHandler = new GameClientHandler(redisClient)
 

@@ -1,10 +1,11 @@
 const redis = require('redis')
 
 class RedisClient {
-  constructor(options) {
-    this.redisClient = redis.createClient(options.port, options.host)
+  constructor(url) {
+    console.log("Connecting to redis at ", url)
+    this.redisClient = redis.createClient(url);
     this.redisClient.on('connect', () => {
-      console.log('Connected to redisClient dog')
+      console.log('Connected to redisClient dawg')
     })
   }
 }
