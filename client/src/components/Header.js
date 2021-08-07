@@ -49,7 +49,12 @@ const Header = ({
                 onClick={() => addComputerPlayer()}>Add Computer Player</button>
       </div>
       |
-      <button id="startButton" onClick={() => startGame()}>Start!</button>
+      <button id="startButton"
+              onClick={() => startGame()}>
+        {
+          gameStarted ? "Restart!" : "Start!"
+        }
+      </button>
     </div>
     <Notify/>
   </div>

@@ -42,11 +42,16 @@ class Mutators {
     }
 
     state.players[playerIndex] = player
-    Mutators.movePlayerToRoom(state, player, "Hall")
+    Mutators.movePlayerToStartingPosition(state, player)
   }
 
   static movePlayersToStartingPositions(state) {
-    //state.rooms.forEach(room => room.layerNames = []);
+    state.rooms.forEach(room => room.playerIds = []);
+    state.players.forEach(player => Mutators.movePlayerToStartingPosition(state, player))
+  }
+
+  static movePlayerToStartingPosition(state, player) {
+    Mutators.movePlayerToRoom(state, player, "Hall")
   }
 
   static distributeCards(state) {
