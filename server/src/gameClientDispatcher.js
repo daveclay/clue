@@ -3,14 +3,15 @@ const GameClientActionCreators = require("game-client-action-creators")
 
 const validateGameClientAction = clientAction => GameClientActionCreators[clientAction.type] != null
 
-const gameClientDispatcher = (clientAction, dispatch, getState) => {
+const gameClientDispatcher = (clientAction, dispatch, getState, gameClient) => {
   if (validateGameClientAction(clientAction)) {
     if (ServerActionCreators[clientAction.type]) {
       const serverActionCreator = ServerActionCreators[clientAction.type]
       if (typeof serverActionCreator === 'function') {
-        serverActionCreator(clientAction, dispatch, getState)
+        serverActionCreator(clientAction, dispatch, getState, gameClient)
       } else {
-        dispatch(serverActionCreator(clientAction))
+        console.error(`${clientAction.type} mapped to invalid action creator - must be a function, bruh`, serverActionCreator)
+        return false
       }
     } else {
       dispatch(clientAction)

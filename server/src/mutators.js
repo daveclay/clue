@@ -24,18 +24,18 @@ class Mutators {
 
   static addPlayer(state, action) {
     let availableCharacters = getAvailableCharacters(state.characters, state.players)
-    if (availableCharacters.size == 0) {
-      // TODO: dork this is the server. Gotta set the error notify message to the state and send it back.
-      alert("No more characters available!")
-      return state;
+    if (availableCharacters.size === 0) {
+      state.notify = "No more characters available!"
+      return
     }
 
     let character = sample(availableCharacters)
     let playerIndex = state.players.length
     let player = {
+      id: playerIndex,
+      gameClientId: action.gameClientId,
       human: action.player.human,
       name: action.player.name || character.name,
-      id: playerIndex,
       character: character,
       image: character.image
     }

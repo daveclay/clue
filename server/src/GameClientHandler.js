@@ -46,7 +46,7 @@ class GameClientHandler {
       this.store.dispatch(action)
     }
 
-    if (gameClientDispatcher(action, dispatch, getState)) {
+    if (gameClientDispatcher(action, dispatch, getState, gameClient)) {
       // TODO: store game state as a log?
       // TODO: reprt the game state to an "admin" page which then can use redux to track changes.
       // console.log("updated state: ", this.store.getState())

@@ -45,7 +45,8 @@ const Header = ({
                }}/>
         <button id="addHumanPlayer"
                 disabled={gameStarted}
-                onClick={() => addHumanPlayer()}>Add Human Player</button>
+                onClick={() => addHumanPlayer()}>Join!</button>
+
         <button id="addComputerPlayer"
                 disabled={gameStarted}
                 onClick={() => addComputerPlayer()}>Add Computer Player</button>

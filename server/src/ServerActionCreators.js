@@ -13,6 +13,12 @@ const ServerActionCreators = {
     dispatch(clientAction)
     dispatchNextTurn(dispatch, getState)
   },
+  addHumanPlayer: (clientAction, dispatch, getState, gameClient) => {
+    dispatch({
+      ...clientAction,
+      gameClientId: gameClient.getId()
+    })
+  },
   onRoomSelected: (clientAction, dispatch, getState) => {
     dispatch(clientAction)
     dispatchNextTurn(dispatch, getState)
