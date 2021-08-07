@@ -16,7 +16,8 @@ const Header = ({
     updatePlayerName,
     addHumanPlayer,
     addComputerPlayer,
-    startGame
+    startGame,
+    gameStarted
 }) => (
   <div className="header">
     <div className="title">
@@ -31,6 +32,7 @@ const Header = ({
         <input id="playerName"
                placeholder="Player Name"
                value={addPlayerForm.name}
+               disabled={gameStarted}
                onKeyUp={e => {
                  if (e.code === 'Enter') {
                    addHumanPlayer()
@@ -39,8 +41,12 @@ const Header = ({
                onChange={(e) => {
                  updatePlayerName(e.target.value);
                }}/>
-        <button id="addHumanPlayer" onClick={() => addHumanPlayer()}>Add Human Player</button>
-        <button id="addComputerPlayer" onClick={() => addComputerPlayer()}>Add Computer Player</button>
+        <button id="addHumanPlayer"
+                disabled={gameStarted}
+                onClick={() => addHumanPlayer()}>Add Human Player</button>
+        <button id="addComputerPlayer"
+                disabled={gameStarted}
+                onClick={() => addComputerPlayer()}>Add Computer Player</button>
       </div>
       |
       <button id="startButton" onClick={() => startGame()}>Start!</button>
@@ -51,7 +57,8 @@ const Header = ({
 
 const mapStateToProps = state => ({
   addPlayerForm: state.client.addPlayerForm,
-  messageFromServer: state.messageFromServer
+  messageFromServer: state.messageFromServer,
+  gameStarted: !state.gameOver
 })
 
 export default connect(
