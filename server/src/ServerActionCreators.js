@@ -8,6 +8,8 @@ const {sample} = ArrayUtils
  * Helpers/Shared ServerActionCreators
  ************************************************/
 
+// TODO: if it's not the player's turn, don't let them do certain actions. Does that belong in the actions? Yeah, prbably.
+
 const ServerActionCreators = {
   startGame: (clientAction, dispatch, getState) => {
     dispatch(clientAction)

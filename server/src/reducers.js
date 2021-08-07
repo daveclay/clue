@@ -46,12 +46,6 @@ const nextPlayerTurn = state => reduceAll(state,
   showCurrentPlayerNotification
 )
 
-const enableComputerPlayers = state => ({
-  ...state,
-  computerPlayersEnabled: true,
-})
-
-
 const resetCurrentTurnPlayerIndex = state => ({
   ...state,
   currentTurnPlayerIndex: -1
@@ -85,7 +79,6 @@ reducers.map('startGame', state => reduceAll(state,
 ))
 
 reducers.map('resetGame', state => GameState)
-reducers.map('enableComputerPlayers', enableComputerPlayers)
 reducers.map('addHumanPlayer', addPlayer)
 reducers.map('addComputerPlayer', addPlayer)
 reducers.map('onRoomSelected', selectRoom)

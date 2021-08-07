@@ -31,10 +31,6 @@ module.exports = {
     type: 'resetGame',
   }),
 
-  enableComputerPlayers: () => ({
-    type: 'enableComputerPlayers',
-  }),
-
   onRoomSelected: (roomName) => ({
     type: 'onRoomSelected',
     roomName

@@ -7,7 +7,6 @@ import App from './components/App'
 
 import {
   addComputerPlayer,
-  enableComputerPlayers,
   helloServer,
   onRoomSelected,
   startGame,
