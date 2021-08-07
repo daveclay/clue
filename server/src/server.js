@@ -1,15 +1,15 @@
 const path = require('path')
 
-const Redis = require("./Redis")
+const RedisClient = require("./RedisClient")
 const GameClientHandler = require("./GameClientHandler")
 const WebServer = require("./WebServer")
 
-const redis = new Redis({
+const redisClient = new RedisClient({
   port: 6379,
   host: process.env.REDIS_URL || "localhost"
 })
 
-const gameClientHandler = new GameClientHandler(redis)
+const gameClientHandler = new GameClientHandler(redisClient)
 
 const webServer = new WebServer({
   assetPath: path.join(__dirname, '../client/build'),

@@ -1,12 +1,12 @@
 const redis = require('redis')
 
-class Redis {
+class RedisClient {
   constructor(options) {
     this.redisClient = redis.createClient(options.port, options.host)
     this.redisClient.on('connect', () => {
-      console.log('Connected to redis dog')
+      console.log('Connected to redisClient dog')
     })
   }
 }
 
-module.exports = Redis
+module.exports = RedisClient
