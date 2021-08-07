@@ -6,9 +6,6 @@ const reducers = new Reducers()
 
 export const initialState = {
   client: {
-    notify: {
-      message: null
-    },
     addPlayerForm: {
       name: "",
     }
@@ -20,8 +17,11 @@ reducers.map('init', state => state)
 reducers.map('updatePlayerName', (state, action) => {
   return {
     ...state,
-    addPlayerForm: {
-      name: action.name
+    client: {
+      ...state.client,
+      addPlayerForm: {
+        name: action.name
+      }
     }
   }
 })
@@ -36,8 +36,11 @@ reducers.map('update', (state, action) => {
 reducers.map("clearPlayerFormName", state => {
   return {
     ...state,
-    addPlayerForm: {
-      name: ""
+    client: {
+      ...state.client,
+      addPlayerForm: {
+        name: ""
+      }
     }
   }
 })
