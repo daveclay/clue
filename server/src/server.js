@@ -9,7 +9,7 @@ const redisClient = new RedisClient(process.env.REDIS_URL || "localhost:6379")
 const gameClientHandler = new GameClientHandler(redisClient)
 
 const webServer = new WebServer({
-  assetPath: path.join(__dirname, '../client/build'),
+  assetPath: path.join(__dirname, '../../client/build'),
   port: process.env.PORT || 4001
 })
 
