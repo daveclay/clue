@@ -7,7 +7,8 @@ import {
 
 import {
   addComputerPlayer,
-  startGame
+  startGame,
+  resetGame
 } from "game-client-action-creators";
 
 const Header = ({
@@ -17,6 +18,7 @@ const Header = ({
     addHumanPlayer,
     addComputerPlayer,
     startGame,
+    resetGame,
     gameStarted
 }) => (
   <div className="header">
@@ -55,6 +57,8 @@ const Header = ({
           gameStarted ? "Restart!" : "Start!"
         }
       </button>
+      <button id="resetButton"
+              onClick={() => resetGame()}>Reset Game</button>
     </div>
     <Notify/>
   </div>
@@ -63,7 +67,7 @@ const Header = ({
 const mapStateToProps = state => ({
   addPlayerForm: state.client.addPlayerForm,
   messageFromServer: state.messageFromServer,
-  gameStarted: !state.gameOver
+  gameStarted: state.gameStarted
 })
 
 export default connect(
@@ -73,5 +77,6 @@ export default connect(
       addHumanPlayer,
       addComputerPlayer,
       startGame,
+      resetGame
     }
 )(Header);

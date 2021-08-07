@@ -52,7 +52,6 @@ const enableComputerPlayers = state => ({
 })
 
 
-// TODO: integrate this someplace.
 const resetCurrentTurnPlayerIndex = state => ({
   ...state,
   currentTurnPlayerIndex: -1
@@ -77,7 +76,7 @@ reducers.map("hello", (state, action) => {
 reducers.map('startGame', state => reduceAll(state,
   state => ({
     ...state,
-    gameOver: false
+    gameStarted: true
   }),
   resetCurrentTurnPlayerIndex,
   mutatorToReducer(pickWhoDunnit),

@@ -19,8 +19,7 @@ const {
  ************************************************/
 class Mutators {
   static resetGame(state) {
-    state.gameOver = false
-    state.victory = false
+    state.gameStarted = false
   }
 
   static addPlayer(state, action) {

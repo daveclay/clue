@@ -10,7 +10,7 @@ const addType = (type, item) => ({
 const addTypeToItems = (type, items) => items.map(item => addType(type, item))
 
 const baseGameState = {
-  gameOver: false,
+  gameStarted: false,
   computerPlayersEnabled: false,
   currentTurnPlayerIndex: -1,
   computerPlayers: [],
