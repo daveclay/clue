@@ -1,37 +1,57 @@
 const GameSelectors = require('game-selectors')
 const { ArrayUtils } = require("js-utils")
 const GameClientActionCreators = require("game-client-actions")
+const {
+  doIfPlayerTurn
+} = require("./utils/GameActionUtils")
 
 const {getCurrentTurnPlayer} = GameSelectors
 const {sample} = ArrayUtils
 /************************************************
- * Helpers/Shared ServerActionCreators
+ * Helpers
  ************************************************/
 
-/*
-TODO: if it's not the player's turn, don't let them do certain actions. Does that belong in the actions? Yeah.
-How? IF the clietn sends an action, it's by default allowed to pass-through. There already is this:
-validateGameClientAction = clientAction => GameClientActionCreators[clientAction.type] != null
-So maybe that can be "injected", allowing dynamic valid actions from the client at certain times.
-
-Also, I feel like the action belongs with the reducer (verticals) rather than component type (horizontals)
+/**
+ * Execute the actionFn if it's the player's turn, and then move to the next player's turn
+ * @param actionFn
  */
-
-const Actions = {
-  startGame: (clientAction, dispatch, getState) => {
-    dispatch(clientAction)
+const doIfPlayerTurnAndDispatchNextTurn = actionFn => doIfPlayerTurn(
+  (clientAction, dispatch, getState, gameClient) => {
+    actionFn(clientAction, dispatch, getState, gameClient)
     dispatchNextTurn(dispatch, getState)
-  },
+  }
+)
+
+/**
+ * Execute the actionFn and dispatch the next player's turn. NOTE that this does not
+ * check whether it is the current player's turn.
+ * @param actionFn
+ * @returns {(function(*, *=, *=, *): void)|*}
+ */
+const doAndDispatchNextTurn = actionFn => (clientAction, dispatch, getState, gameClient) => {
+  actionFn(clientAction, dispatch, getState, gameClient)
+  dispatchNextTurn(dispatch, getState)
+}
+
+/************************************************
+ * The Actions
+ ************************************************/
+const Actions = {
   addHumanPlayer: (clientAction, dispatch, getState, gameClient) => {
     dispatch({
       ...clientAction,
       gameClientId: gameClient.getId()
     })
   },
-  onRoomSelected: (clientAction, dispatch, getState) => {
-    dispatch(clientAction)
-    dispatchNextTurn(dispatch, getState)
-  },
+
+  startGame: doAndDispatchNextTurn(
+    (clientAction, dispatch) => dispatch(clientAction)
+  ),
+
+  onRoomSelected: doIfPlayerTurnAndDispatchNextTurn(
+    (clientAction, dispatch) => dispatch(clientAction)
+  ),
+
   nextPlayerTurn: () => ({
     type: 'nextPlayerTurn'
   })
