@@ -11,12 +11,12 @@ import {
   onRoomSelected,
   startGame,
   resetGame,
-} from "game-client-action-creators";
+} from "game-client-actions";
 
 import {
   addHumanPlayer,
   updatePlayerName,
-} from "./redux/actionCreators";
+} from "./redux/actions";
 
 const rootElement = document.getElementById('root')
 ReactDOM.render(

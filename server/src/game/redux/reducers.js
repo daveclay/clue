@@ -1,4 +1,4 @@
-const GameState = require('./GameState')
+const GameState = require('../GameState')
 
 const reduxUtils = require("redux-utils")
 const gameSelectors = require("game-selectors")

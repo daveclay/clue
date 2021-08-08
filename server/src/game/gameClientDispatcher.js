@@ -1,12 +1,12 @@
-const ServerActionCreators = require("./ServerActionCreators")
-const GameClientActionCreators = require("game-client-action-creators")
+const ServerActions = require("./redux/actions")
+const GameClientActions = require("game-client-actions")
 
-const validateGameClientAction = clientAction => GameClientActionCreators[clientAction.type] != null
+const validateGameClientAction = clientAction => GameClientActions[clientAction.type] != null
 
 const gameClientDispatcher = (clientAction, dispatch, getState, gameClient) => {
   if (validateGameClientAction(clientAction)) {
-    if (ServerActionCreators[clientAction.type]) {
-      const serverActionCreator = ServerActionCreators[clientAction.type]
+    if (ServerActions[clientAction.type]) {
+      const serverActionCreator = ServerActions[clientAction.type]
       if (typeof serverActionCreator === 'function') {
         serverActionCreator(clientAction, dispatch, getState, gameClient)
       } else {
@@ -18,7 +18,7 @@ const gameClientDispatcher = (clientAction, dispatch, getState, gameClient) => {
     }
     return true
   } else {
-    console.warn(`action ${clientAction.type} is not in ${GameClientActionCreators} - ignoring`)
+    console.warn(`action ${clientAction.type} is not in ${GameClientActions} - ignoring`)
     return false
   }
 }

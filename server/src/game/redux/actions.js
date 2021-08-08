@@ -1,6 +1,6 @@
 const GameSelectors = require('game-selectors')
-const { ArrayUtils, ObjectUtils } = require("js-utils")
-const GameClientActionCreators = require("game-client-action-creators")
+const { ArrayUtils } = require("js-utils")
+const GameClientActionCreators = require("game-client-actions")
 
 const {getCurrentTurnPlayer} = GameSelectors
 const {sample} = ArrayUtils
@@ -14,28 +14,10 @@ How? IF the clietn sends an action, it's by default allowed to pass-through. The
 validateGameClientAction = clientAction => GameClientActionCreators[clientAction.type] != null
 So maybe that can be "injected", allowing dynamic valid actions from the client at certain times.
 
-Or mixin behavior? like
-
-onRoomSelected: onlyForCurrentPlayerTurn((..) => {
-  dispatch(clientAction)
-  dispatchNextTurn(dispatch, getState)
-})
-
-or even
-playerTurnActionCreators({
-  onRoomSelected: (...) => dispatch(clientAction)
-})
-
-which means I should abandon the quest to keep IDEA referencing the right thing.
-
 Also, I feel like the action belongs with the reducer (verticals) rather than component type (horizontals)
  */
 
-const playerTurnActionCreators = actionCreators => ObjectUtils.map(actionCreators)(entry => {
-
-})
-
-const ServerActionCreators = {
+const Actions = {
   startGame: (clientAction, dispatch, getState) => {
     dispatch(clientAction)
     dispatchNextTurn(dispatch, getState)
@@ -56,7 +38,7 @@ const ServerActionCreators = {
 }
 
 const dispatchNextTurn = (dispatch, getState) => {
-  dispatch(ServerActionCreators.nextPlayerTurn())
+  dispatch(Actions.nextPlayerTurn())
   const state = getState()
   const player = getCurrentTurnPlayer(state)
   if (!player.human) {
@@ -86,4 +68,4 @@ const computerActionCreatorFunctions = [
   moveToRandomRoom
 ]
 
-module.exports = ServerActionCreators
+module.exports = Actions

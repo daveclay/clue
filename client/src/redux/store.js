@@ -4,14 +4,14 @@ import { rootReducer, initialState } from "./reducers";
 import { composeWithDevTools } from 'redux-devtools-extension'
 import io from 'socket.io-client';
 import { buildSocketIOMiddleware } from "./socketIoMiddleware"
-import GameClientActionCreators from "game-client-action-creators"
+import GameClientActions from "game-client-actions"
 
-import { init } from "./actionCreators"
+import { init } from "./actions"
 
 const socket = io(process.env.REACT_APP_SERVER_URL|| 'http://localhost:4001');
 
 const isServerAction = action => {
-  return action && action.type && GameClientActionCreators[action.type] != null
+  return action && action.type && GameClientActions[action.type] != null
 }
 
 const socketIoMiddleware = buildSocketIOMiddleware(socket, isServerAction)

@@ -19,6 +19,7 @@ const {
 /************************************************
  * Mutators
  ************************************************/
+// TODO: const-ify I guess, probably more Javascript-like than static methods, since this is never instantiated.
 class Mutators {
   static resetGame(state) {
     state.gameStarted = false

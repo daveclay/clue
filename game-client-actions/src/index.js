@@ -1,5 +1,5 @@
 /*************************************************************************************
- * GameClientActionCreators
+ * GameClientActions
  * These are Actions dispatched from the Client to the Server.
  ************************************************************************************/
 module.exports = {

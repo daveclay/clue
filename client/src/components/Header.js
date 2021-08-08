@@ -3,13 +3,13 @@ import Notify from "./Notify"
 import {
   updatePlayerName,
   addHumanPlayer,
-} from "../redux/actionCreators"
+} from "../redux/actions"
 
 import {
   addComputerPlayer,
   startGame,
   resetGame
-} from "game-client-action-creators";
+} from "game-client-actions";
 
 const Header = ({
     addPlayerForm,

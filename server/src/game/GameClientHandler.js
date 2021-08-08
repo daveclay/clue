@@ -1,5 +1,5 @@
 const redux = require("redux")
-const reducers = require("./reducers")
+const reducers = require("./redux/reducers")
 const GameClient = require("./GameClient")
 const GameState = require("./GameState")
 const gameClientDispatcher = require("./gameClientDispatcher")

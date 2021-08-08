@@ -1,7 +1,7 @@
 const path = require('path')
 
 const RedisClient = require("./RedisClient")
-const GameClientHandler = require("./GameClientHandler")
+const GameClientHandler = require("./game/GameClientHandler")
 const WebServer = require("./WebServer")
 
 const redisClient = new RedisClient(process.env.REDIS_URL || "redis://localhost:6379")
