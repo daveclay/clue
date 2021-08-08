@@ -1,12 +1,14 @@
-const arrayUtils = require("array-utils")
+const { ArrayUtils, IteratorUtils } = require("js-utils")
 const gameSelectors = require("game-selectors")
 
 const {
-  times,
   sample,
   pluckRandom,
   allExcept
-} = arrayUtils
+} = ArrayUtils
+const {
+  times
+} = IteratorUtils
 
 const {
   getAvailableCharacters,
