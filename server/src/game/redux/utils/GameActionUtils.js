@@ -1,8 +1,13 @@
+const {
+  getCurrentTurnPlayer
+} = require("game-selectors")
+
 const GameActionUtils = {}
 
 GameActionUtils.isPlayerTurn = (gameClient, getState) => {
-  // TODO:
-  return true
+  const state = getState()
+  const player = getCurrentTurnPlayer(state)
+  return gameClient.getId() == player.gameClientId
 }
 
 GameActionUtils.doIfPlayerTurn = actionFn => {

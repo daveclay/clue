@@ -1,6 +1,6 @@
 const GameSelectors = require('game-selectors')
 const { ArrayUtils } = require("js-utils")
-const GameClientActionCreators = require("game-client-actions")
+const GameClientActions = require("game-client-actions")
 const {
   doIfPlayerTurn
 } = require("./utils/GameActionUtils")
@@ -68,20 +68,20 @@ const dispatchNextTurn = (dispatch, getState) => {
 
 const doComputerPlayer = (dispatch, getState) => {
   setTimeout(() => {
-    const actionCreatorFunctions = sample(getAvailableComputerActionCreatorFunctions(getState))
-    actionCreatorFunctions(dispatch, getState)
+    const action = sample(getAvailableComputerActions(getState))
+    action(dispatch, getState)
     dispatchNextTurn(dispatch, getState)
   }, 200)
 }
 
-const getAvailableComputerActionCreatorFunctions = (getState) => {
+const getAvailableComputerActions = (getState) => {
   return computerActionCreatorFunctions
 }
 
 const moveToRandomRoom = (dispatch, getState) => {
   const state = getState()
   const randomRoom = sample(state.rooms)
-  dispatch(GameClientActionCreators.onRoomSelected(randomRoom.name))
+  dispatch(GameClientActions.onRoomSelected(randomRoom.name))
 }
 
 const computerActionCreatorFunctions = [
