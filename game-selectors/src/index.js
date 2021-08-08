@@ -56,10 +56,9 @@ class Selectors {
   static isCurrentTurnPlayerAbleToSelectRoom(state, room) {
     let currentTurnPlayer = Selectors.getCurrentTurnPlayer(state)
     return currentTurnPlayer &&
-    !Selectors.isCurrentTurnPlayerInRoom(state, room) &&
-    !state.gameOver &&
-    !state.emergencyMeetingStarted &&
-    currentTurnPlayer.human
+      !Selectors.isCurrentTurnPlayerInRoom(state, room) &&
+      !state.gameOver &&
+      currentTurnPlayer.human
   }
 
   static getRoomByName(state, roomName) {

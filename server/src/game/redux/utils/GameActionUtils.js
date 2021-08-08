@@ -7,7 +7,7 @@ const GameActionUtils = {}
 GameActionUtils.isPlayerTurn = (gameClient, getState) => {
   const state = getState()
   const player = getCurrentTurnPlayer(state)
-  return gameClient.getId() == player.gameClientId
+  return gameClient.getId() === player.gameClientId
 }
 
 GameActionUtils.doIfPlayerTurn = actionFn => {
