@@ -13,19 +13,16 @@ GameActionUtils.ifPlayerTurn = originalActionCreator => {
   }
 }
 
-GameActionUtils.doWithNextTurn = (originalActionCreator, dispatchNextTurn) => {
+GameActionUtils.doAndDispatchNextTurn = (originalActionCreator, dispatchNextTurn) => {
   return (clientAction, dispatch, getState, gameClient) => {
     originalActionCreator(clientAction, dispatch, getState, gameClient)
     dispatchNextTurn(dispatch, getState)
   }
 }
 
-GameActionUtils.playerTurn = originalActionCreator => {
-  return GameActionUtils.ifPlayerTurn(
-  (clientAction, dispatch, getState, gameClient) =>
-    GameActionUtils.doWithNextTurn(originalActionCreator)
-  )
-}
+GameActionUtils.playerTurn = originalActionCreator =>
+  GameActionUtils.ifPlayerTurn(
+    () => GameActionUtils.doAndDispatchNextTurn(originalActionCreator))
 
 module.exports = GameActionUtils
 
