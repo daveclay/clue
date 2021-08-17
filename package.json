@@ -3,8 +3,8 @@
   "homepage": ".",
   "version": "0.1.0",
   "scripts": {
-    "dev": "concurrently \"cd client && PORT=4000 npm run start\" \"cd server && nodemon ./server.js\"",
-    "build": "cd redux-utils && npm i && cd ../server && npm i && cd ../client && npm i && npm run build"
+    "dev": "concurrently \"cd client && PORT=4000 npm run start\" \"cd server && nodemon ./built/server.js\"",
+    "build": "cd redux-utils && npm i && cd ../server && npm i && npx tsc && cd ../client && npm i && npm run build"
   },
   "devDependencies": {
     "concurrently": "^6.2.0"

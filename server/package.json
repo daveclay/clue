@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
     "express": "^4.17.1",
     "game-client-actions": "file:../game-client-actions",
     "game-selectors": "file:../game-selectors",
@@ -13,9 +14,10 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "nodemon built/server.js"
   },
   "devDependencies": {
-    "jest": "^27.0.6"
+    "jest": "^27.0.6",
+    "typescript": "^4.3.5"
   }
 }

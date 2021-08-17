@@ -1,9 +1,11 @@
-import {
-  getPlayerById,
-} from "game-selectors";
+import gameSelectors from "game-selectors";
 import {
   addHumanPlayer as addHumanPlayerServerAction
 } from "game-client-actions"
+
+const {
+  getPlayerById,
+} = gameSelectors.default
 
 export const init = () => ({
   type: 'init'

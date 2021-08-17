@@ -9,7 +9,7 @@ module.exports = {
   }),
 
   addHumanPlayer: name => ({
-    type: 'addHumanPlayer',
+    type: 'addPlayer',
     player: {
       human: true,
       name: name
@@ -17,7 +17,7 @@ module.exports = {
   }),
 
   addComputerPlayer: () => ({
-    type: 'addComputerPlayer',
+    type: 'addPlayer',
     player: {
       human: false
     }

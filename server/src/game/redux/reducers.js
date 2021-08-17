@@ -28,10 +28,6 @@ const {
  ************************************************/
 const reducers = new Reducers()
 
-const addPlayer = (state, action) => reduceAll(state,
-  mutatorToReducer(state => mutators.addPlayer(state, action))
-)
-
 const selectRoom = (state, action) => reduceAll(state,
   mutatorToReducer(state => moveCurrentPlayerToRoom(state, action.roomName)),
 )
@@ -65,20 +61,7 @@ reducers.map("hello", (state, action) => {
   }
 })
 
-reducers.map('startGame', state => reduceAll(state,
-  state => ({
-    ...state,
-    gameStarted: true
-  }),
-  resetCurrentTurnPlayerIndex,
-  mutatorToReducer(pickWhoDunnit),
-  mutatorToReducer(distributeCards),
-  mutatorToReducer(movePlayersToStartingPositions)
-))
-
 reducers.map('resetGame', state => GameState)
-reducers.map('addHumanPlayer', addPlayer)
-reducers.map('addComputerPlayer', addPlayer)
 reducers.map('onRoomSelected', selectRoom)
 reducers.map('nextPlayerTurn', nextPlayerTurn)
 

@@ -5,7 +5,7 @@ const {
   doIfPlayerTurn
 } = require("./utils/GameActionUtils")
 
-const {getCurrentTurnPlayer} = GameSelectors
+const {getCurrentTurnPlayer} = GameSelectors.default
 const {sample} = ArrayUtils
 /************************************************
  * Helpers
