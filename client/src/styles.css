@@ -5,7 +5,6 @@ body {
 }
 
 .footer {
-  height: 200px;
   background-color: white;
   margin: 10px;
 }
@@ -14,13 +13,19 @@ body {
 }
 
 .cards .card {
+  font-size: .8em;
+  background-color: gray;
   display: inline-block;
   border: 1px solid gray;
   padding: 5px;
   margin: 5px;
-  width: 100px;
-  height: 140px;
+  width: 80px;
+  height: 100px;
   vertical-align: top;
+}
+
+.card.playerCard {
+  background-color: white;
 }
 
 .addPlayer {
@@ -104,9 +109,12 @@ body {
 .player {
   display: inline-block;
   color: #999999;
-  margin: 10px;
-  padding: 4px;
-  font-size: 14px;
+  margin: 2px;
+  font-size: .8em;
+}
+
+.player .imageContainer img {
+  width: 30px;
 }
 
 .playerName {
@@ -146,8 +154,4 @@ body {
   64%  { transform: scale(1,1)      translateY(0); }
   70%  { transform: scale(1,1)      translateY(-2px); }
   100% { transform: scale(1,1)      translateY(0); }
-}
-
-.player .imageContainer img {
-  width: 40px;
 }

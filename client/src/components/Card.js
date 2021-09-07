@@ -4,8 +4,9 @@ import {connect} from "react-redux";
 const Card = ({
   card,
   player,
+  playerCard
 }) => (
-  <div className="card">
+  <div className={`card ${playerCard ? "playerCard" : ""}`}>
     <div>
       {
         card.name
@@ -17,6 +18,7 @@ const Card = ({
 const mapStateToProps = (state, ownProps) => ({
   card: ownProps.card,
   player: ownProps.player,
+  playerCard: ownProps.playerCard
 })
 
 export default connect(

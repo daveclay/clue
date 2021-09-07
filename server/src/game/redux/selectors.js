@@ -24,6 +24,14 @@ Selectors.getPlayerIndexForGameClientId = (state, id) => {
   return player && state.players.indexOf(player)
 }
 
+Selectors.allCards = state => {
+  return [
+    ...state.characters,
+    ...state.weapons,
+    ...state.rooms
+  ]
+}
+
 Selectors.playerCards = (state, id) => {
   const player = Selectors.getPlayerForGameClientId(state, id)
   return player && state.playerCardsByPlayerId[player.id]

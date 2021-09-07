@@ -1,77 +1,79 @@
 /************************************************
  * Selectors
  ************************************************/
-class Selectors {
-  static getPlayerCharacterNames(players) {
-    return players.map(player => player.character.name)
-  }
+const Selectors = {}
 
-  static getCurrentTurnPlayer(state) {
-    return state.players[state.currentTurnPlayerIndex]
-  }
+Selectors.getPlayerCharacterNames = (players) => {
+  return players.map(player => player.character.name)
+}
 
-  static getCurrentTurnPlayerName(state) {
-    let currentTurnPlayer = Selectors.getCurrentTurnPlayer(state)
-    if (currentTurnPlayer) {
-      return currentTurnPlayer.name
-    } else {
-      return null;
-    }
-  }
+Selectors.isPlayerCard = (card, playerCards) => playerCards.map(c => c.id).indexOf(card.id) > -1
 
-  static isPlayerInRoom(room, player) {
-    return room.playerIds.includes(player.id)
-  }
+Selectors.getCurrentTurnPlayer = state => {
+  return state.players[state.currentTurnPlayerIndex]
+}
 
-  static getRoomForPlayer(state, player) {
-    return state.rooms.find(room => Selectors.isPlayerInRoom(room, player))
+Selectors.getCurrentTurnPlayerName = state => {
+  let currentTurnPlayer = Selectors.getCurrentTurnPlayer(state)
+  if (currentTurnPlayer) {
+    return currentTurnPlayer.name
+  } else {
+    return null;
   }
+}
 
-  static isCurrentTurnPlayerInRoom(state, room) {
-    let currentTurnPlayer = Selectors.getCurrentTurnPlayer(state)
-    if (currentTurnPlayer) {
-      let currentTurnPlayerRoom = Selectors.getRoomForPlayer(state, currentTurnPlayer)
-      return currentTurnPlayerRoom && currentTurnPlayerRoom.name === room.name
-    } else {
-      return false
-    }
-  }
+Selectors.isPlayerInRoom = (room, player) => {
+  return room.playerIds.includes(player.id)
+}
 
-  static getPlayerById(players, id) {
-    return players.find(player => player.id === id)
-  }
+Selectors.getRoomForPlayer = (state, player) => {
+  return state.rooms.find(room => Selectors.isPlayerInRoom(room, player))
+}
 
-  static getAvailableCharacters(characters, players) {
-    let playerCharacterNames = Selectors.getPlayerCharacterNames(players)
-    return characters.filter(character => !playerCharacterNames.includes(character.name))
+Selectors.isCurrentTurnPlayerInRoom = (state, room) => {
+  let currentTurnPlayer = Selectors.getCurrentTurnPlayer(state)
+  if (currentTurnPlayer) {
+    let currentTurnPlayerRoom = Selectors.getRoomForPlayer(state, currentTurnPlayer)
+    return currentTurnPlayerRoom && currentTurnPlayerRoom.name === room.name
+  } else {
+    return false
   }
+}
 
-  static getPlayersInRoom(players, room) {
-    return room.playerIds.map(id => Selectors.getPlayerById(players, id))
-  }
-  static isCurrentTurnPlayer(state, player) {
-    return Selectors.getCurrentTurnPlayerName(state) === player.name
-  }
+Selectors.getPlayerById = (players, id) => {
+  return players.find(player => player.id === id)
+}
 
-  static isCurrentTurnPlayerAbleToSelectRoom(state, room) {
-    let currentTurnPlayer = Selectors.getCurrentTurnPlayer(state)
-    return currentTurnPlayer &&
-      !Selectors.isCurrentTurnPlayerInRoom(state, room) &&
-      !state.gameOver &&
-      currentTurnPlayer.human
-  }
+Selectors.getAvailableCharacters = (characters, players) => {
+  let playerCharacterNames = Selectors.getPlayerCharacterNames(players)
+  return characters.filter(character => !playerCharacterNames.includes(character.name))
+}
 
-  static getRoomByName(state, roomName) {
-    return state.rooms.find(room => room.name === roomName)
-  }
+Selectors.getPlayersInRoom = (players, room) => {
+  return room.playerIds.map(id => Selectors.getPlayerById(players, id))
+}
+Selectors.isCurrentTurnPlayer = (state, player) => {
+  return Selectors.getCurrentTurnPlayerName(state) === player.name
+}
 
-  static getNextPlayerTurnIndex(state)  {
-    let nextIndex = state.currentTurnPlayerIndex + 1
-    if (state.players.length === nextIndex) {
-      return 0;
-    } else {
-      return nextIndex;
-    }
+Selectors.isCurrentTurnPlayerAbleToSelectRoom = (state, room) => {
+  let currentTurnPlayer = Selectors.getCurrentTurnPlayer(state)
+  return currentTurnPlayer &&
+    !Selectors.isCurrentTurnPlayerInRoom(state, room) &&
+    !state.gameOver &&
+    currentTurnPlayer.human
+}
+
+Selectors.getRoomByName = (state, roomName) => {
+  return state.rooms.find(room => room.name === roomName)
+}
+
+Selectors.getNextPlayerTurnIndex = state => {
+  let nextIndex = state.currentTurnPlayerIndex + 1
+  if (state.players.length === nextIndex) {
+    return 0;
+  } else {
+    return nextIndex;
   }
 }
 

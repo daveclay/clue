@@ -1,23 +1,26 @@
 import React from "react";
 import {connect} from "react-redux";
 import Card from "./Card";
+import { isPlayerCard } from "game-selectors"
 
 const Cards = ({
-  player,
-  cards
+  allCards,
+  playerCards
 }) => (
   <div className="cards">
     <div>
       {
-        cards.map(card => <Card key={`card_${card.id}`} card={card}/>)
+        allCards.map(card => <Card key={`card_${card.id}`}
+                                   card={card}
+                                   playerCard={isPlayerCard(card, playerCards)}/>)
       }
     </div>
   </div>
 )
 
 const mapStateToProps = (state, ownProps) => ({
-  player: state.players.length == 0 ? null : state.players[state.playerIndex],
-  cards: state.cards || []
+  allCards: state.allCards || [],
+  playerCards: state.playerCards || []
 })
 
 export default connect(

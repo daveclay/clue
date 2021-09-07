@@ -2,12 +2,29 @@ const immer = require('immer')
 
 const { produce } = immer
 
-const addType = (type, item) => ({
+const compose = (...funcs) => item => {
+  return funcs.reduce((item, fn) => fn(item), item)
+}
+
+const addAttribute = attribute => value => item => ({
   ...item,
-  type: type
+  [attribute]: typeof value == "function" ? value(item) : value
 })
 
-const addTypeToItems = (type, items) => items.map(item => addType(type, item))
+const addTypeAttribute = addAttribute("type")
+const addCharacterType = addTypeAttribute("character")
+const addWeaponType = addTypeAttribute("weapon")
+const addRoomType = addTypeAttribute("room")
+
+const addIdAttribute = addAttribute("id")
+const addIdToItem = addIdAttribute(item => `${item.type}_${item.name.replace(/\W/g, "_")}`)
+
+const configureCharacter = compose(addCharacterType, addIdToItem)
+const configureWeapon = compose(addWeaponType, addIdToItem)
+const configureRoom = compose(addRoomType, addIdToItem, item => ({
+  ...item,
+  playerIds: []
+}))
 
 const baseGameState = {
   gameStarted: false,
@@ -95,11 +112,7 @@ const baseGameState = {
 }
 
 module.exports = produce(baseGameState, state => {
-  state.characters = addTypeToItems("character", state.characters)
-  state.weapons = addTypeToItems("weapon", state.weapons)
-  state.rooms = addTypeToItems("room", state.rooms).map(room => {
-    room.playerIds = []
-    return room
-  })
-
+  state.characters = state.characters.map(configureCharacter)
+  state.weapons = state.weapons.map(configureWeapon)
+  state.rooms = state.rooms.map(configureRoom)
 })

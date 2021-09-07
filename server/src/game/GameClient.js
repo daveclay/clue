@@ -17,7 +17,8 @@ class GameClient {
       weapons: state.weapons,
       players: state.players, // TODO: hide the game client id? That should be private.
       playerIndex: Selectors.getPlayerIndexForGameClientId(state, this.socket.id),
-      cards: Selectors.playerCards(state, this.socket.id),
+      playerCards: Selectors.playerCards(state, this.socket.id),
+      allCards: Selectors.allCards(state),
       currentTurnPlayerIndex: state.currentTurnPlayerIndex
     }
   }
