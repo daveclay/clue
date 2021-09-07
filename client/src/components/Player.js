@@ -29,14 +29,6 @@ const Player = ({
         <div className="imageContainer">
           <img src={`character-images/${player.image}.png`}/>
         </div>
-        <div className="playerContent">
-          <span className="playerName">{player.name}</span>
-          <span className="status">
-            {
-              isCurrentTurn ? "'s turn!" : ""
-            }
-          </span>
-        </div>
       </div>
     </div>
 );

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 const Notify = ({notify}) => (
-    notify == null ? "<div/>" : <div id="notify" className={notify.className}>{notify.message}</div>
+    notify == null ? <div/> : <div id="notify" className={notify.className}>{notify.message}</div>
 );
 
 const mapStateToProps = state => ({

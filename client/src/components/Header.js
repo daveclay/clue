@@ -1,26 +1,17 @@
 import { connect } from "react-redux";
 import Notify from "./Notify"
-import {
-  updatePlayerName,
-  addHumanPlayer,
-} from "../redux/actions"
+import GameConfiguration from "./GameConfiguration";
 
 import {
-  addComputerPlayer,
   startGame,
   resetGame
 } from "game-client-actions";
 
 const Header = ({
-    addPlayerForm,
     messageFromServer,
-    updatePlayerName,
-    addHumanPlayer,
-    addComputerPlayer,
     startGame,
     resetGame,
     gameStarted,
-    isAddHumanPlayerEnabled
 }) => (
   <div className="header">
     <div className="title">
@@ -31,28 +22,9 @@ const Header = ({
       }
     </div>
     <div className="gameControls">
-      <div className="addPlayer">
-        <input id="playerName"
-               placeholder="Player Name"
-               value={addPlayerForm.name}
-               disabled={gameStarted}
-               onKeyUp={e => {
-                 if (e.code === 'Enter') {
-                   addHumanPlayer()
-                 }
-               }}
-               onChange={(e) => {
-                 updatePlayerName(e.target.value);
-               }}/>
-        <button id="addHumanPlayer"
-                disabled={!isAddHumanPlayerEnabled}
-                onClick={() => addHumanPlayer()}>Join!</button>
-
-        <button id="addComputerPlayer"
-                disabled={gameStarted}
-                onClick={() => addComputerPlayer()}>Add Computer Player</button>
-      </div>
-      |
+      {
+        gameStarted ? null : <GameConfiguration />
+      }
       <button id="startButton"
               onClick={() => startGame()}>
         {
@@ -67,18 +39,13 @@ const Header = ({
 )
 
 const mapStateToProps = state => ({
-  addPlayerForm: state.client.addPlayerForm,
   messageFromServer: state.messageFromServer,
   gameStarted: state.gameStarted,
-  isAddHumanPlayerEnabled: !state.gameStarted && state.playerIndex < 0
 })
 
 export default connect(
     mapStateToProps,
     {
-      updatePlayerName,
-      addHumanPlayer,
-      addComputerPlayer,
       startGame,
       resetGame
     }

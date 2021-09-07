@@ -12,6 +12,11 @@ const Card = ({
         card.name
       }
     </div>
+    <div className="card-status">
+      {
+        playerCard ? "✓" : "?"
+      }
+    </div>
   </div>
 )
 

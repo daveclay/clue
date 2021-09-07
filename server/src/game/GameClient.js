@@ -19,7 +19,9 @@ class GameClient {
       playerIndex: Selectors.getPlayerIndexForGameClientId(state, this.socket.id),
       playerCards: Selectors.playerCards(state, this.socket.id),
       allCards: Selectors.allCards(state),
-      currentTurnPlayerIndex: state.currentTurnPlayerIndex
+      currentTurnPlayerIndex: state.currentTurnPlayerIndex,
+      gameStarted: state.gameStarted,
+      notify: state.notify
     }
   }
 

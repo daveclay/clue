@@ -30,7 +30,7 @@ reducers.map('updatePlayerName', (state, action) => {
 reducers.map('update', (state, action) => {
   return {
     ...state,
-    ...action.state
+    ...action.state,
   }
 })
 
