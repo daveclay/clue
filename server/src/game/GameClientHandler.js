@@ -3,10 +3,23 @@ const reducers = require("./redux/reducers")
 const GameClient = require("./GameClient")
 const GameState = require("./GameState")
 const gameClientDispatcher = require("./gameClientDispatcher")
+const {applyMiddleware} = require("redux");
 
 const {
   createStore
 } = redux
+
+/**
+ * Logs all actions and states after they are dispatched.
+ */
+const logger = store => next => action => {
+  console.group(`Server Action ${action.type}`)
+  console.info('dispatching', action)
+  let result = next(action)
+  console.log('next state', store.getState())
+  console.groupEnd()
+  return result
+}
 
 class GameClientHandler {
   initialState = GameState
@@ -14,7 +27,11 @@ class GameClientHandler {
 
   constructor(redis) {
     this.redis = redis
-    this.store = createStore(reducers.getReduxReducerFunction(), this.initialState)
+    this.store = createStore(
+      reducers.getReduxReducerFunction(),
+      this.initialState,
+      applyMiddleware(logger))
+
     this.store.subscribe(() => {
       this.updateClients()
     })
@@ -39,7 +56,8 @@ class GameClientHandler {
 
   dispatchGameClientAction(gameClient, action) {
     // TODO: Probably add the gameClient to a clone of the action to dispatch? So that one client can't pretend its their turn?
-    console.log(`client sent action: `, action)
+    console.group(`Client Action ${action.type}`)
+    console.info("dispatching", action)
 
     let getState = () => this.store.getState()
     let dispatch = action => {
@@ -54,6 +72,7 @@ class GameClientHandler {
       // TODO: some sort of "atomic" deconstruction of the updatedState and store in redis
       // save(state)
     }
+    console.groupEnd()
   }
 
   hi() {

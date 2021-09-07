@@ -1,23 +1,13 @@
 import React from "react";
-import {connect} from "react-redux";
 import Cards from "./Cards";
 
-const Footer = ({
-  player,
-}) => (
+const Footer = () => (
   <div className="footer">
     <div>
-      {
-        player != null && player.human ? <Cards key={`cards_${player.id}`} player={player}/> : null
-      }
+      <Cards/>
     </div>
   </div>
 )
 
-const mapStateToProps = (state, ownProps) => ({
-  player: state.players.length == 0 ? null : state.players[state.currentTurnPlayerIndex]
-})
 
-export default connect(
-    mapStateToProps,
-)(Footer);
+export default Footer

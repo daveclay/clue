@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import {
   isCurrentTurnPlayer
 } from "game-selectors"
-
+import {
+  onPlayerSelected
+} from "game-client-actions"
 
 const getPlayerClassName = (isCurrentTurn, celebrate) => {
   if (celebrate) {
@@ -19,8 +21,10 @@ const Player = ({
   celebrate,
   player,
   isCurrentTurn,
+  onSelect
 }) => (
-    <div className={`player ${getPlayerClassName(isCurrentTurn, celebrate)}`}>
+    <div className={`player ${getPlayerClassName(isCurrentTurn, celebrate)}`}
+         onClick={() => onSelect(player)}>
       <div>
         <div className="imageContainer">
           <img src={`character-images/${player.image}.png`}/>
@@ -44,5 +48,5 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 export default connect(mapStateToProps, {
-
+  onSelect: onPlayerSelected
 })(Player);

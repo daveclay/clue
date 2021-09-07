@@ -16,8 +16,8 @@ const Cards = ({
 )
 
 const mapStateToProps = (state, ownProps) => ({
-  player: ownProps.player,
-  cards: state.playerCardsByPlayerId[ownProps.player.id]
+  player: state.players.length == 0 ? null : state.players[state.playerIndex],
+  cards: state.cards || []
 })
 
 export default connect(

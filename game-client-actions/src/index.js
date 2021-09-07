@@ -34,5 +34,10 @@ module.exports = {
   onRoomSelected: (roomName) => ({
     type: 'onRoomSelected',
     roomName
+  }),
+
+  onPlayerSelected: (player) => ({
+    type: 'onPlayerSelected',
+    player: player
   })
 }

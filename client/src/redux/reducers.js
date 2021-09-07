@@ -10,6 +10,7 @@ export const initialState = {
       name: "",
     }
   },
+  currentPlayerIndex: -1,
   players: []
 }
 

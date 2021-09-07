@@ -6,6 +6,7 @@ const validateGameClientAction = clientAction => GameClientActions[clientAction.
 const gameClientDispatcher = (clientAction, dispatch, getState, gameClient) => {
   if (validateGameClientAction(clientAction)) {
     if (ServerActions[clientAction.type]) {
+      // TODO: Should this defer to GameClient, and then GameClient handles its own?
       const serverActionCreator = ServerActions[clientAction.type]
       if (typeof serverActionCreator === 'function') {
         serverActionCreator(clientAction, dispatch, getState, gameClient)

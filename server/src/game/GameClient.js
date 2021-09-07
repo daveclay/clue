@@ -1,3 +1,6 @@
+const Selectors = require("./redux/selectors")
+const GameSelectors = require("game-selectors")
+
 class GameClient {
   constructor(socket) {
     this.socket = socket
@@ -8,8 +11,15 @@ class GameClient {
   }
 
   selectState(state) {
-    // TODO: select only client-visible state (specific to _this_ client's ID). So they can't see each other's cards.
-    return state
+    return {
+      characters: state.characters,
+      rooms: state.rooms,
+      weapons: state.weapons,
+      players: state.players, // TODO: hide the game client id? That should be private.
+      playerIndex: Selectors.getPlayerIndexForGameClientId(state, this.socket.id),
+      cards: Selectors.playerCards(state, this.socket.id),
+      currentTurnPlayerIndex: state.currentTurnPlayerIndex
+    }
   }
 
   update(state) {

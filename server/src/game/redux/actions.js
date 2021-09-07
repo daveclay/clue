@@ -1,4 +1,5 @@
 const GameSelectors = require('game-selectors')
+const Selectors = require("./selectors")
 const { ArrayUtils } = require("js-utils")
 const GameClientActions = require("game-client-actions")
 const {
@@ -33,30 +34,6 @@ const doAndDispatchNextTurn = actionFn => (clientAction, dispatch, getState, gam
   dispatchNextTurn(dispatch, getState)
 }
 
-/************************************************
- * The Actions
- ************************************************/
-const Actions = {
-  addHumanPlayer: (clientAction, dispatch, getState, gameClient) => {
-    dispatch({
-      ...clientAction,
-      gameClientId: gameClient.getId()
-    })
-  },
-
-  startGame: doAndDispatchNextTurn(
-    (clientAction, dispatch) => dispatch(clientAction)
-  ),
-
-  onRoomSelected: doIfPlayerTurnAndDispatchNextTurn(
-    (clientAction, dispatch) => dispatch(clientAction)
-  ),
-
-  nextPlayerTurn: () => ({
-    type: 'nextPlayerTurn'
-  })
-}
-
 const dispatchNextTurn = (dispatch, getState) => {
   dispatch(Actions.nextPlayerTurn())
   const state = getState()
@@ -87,5 +64,53 @@ const moveToRandomRoom = (dispatch, getState) => {
 const computerActionCreatorFunctions = [
   moveToRandomRoom
 ]
+
+const isGameClientAlreadyPlayer = (state, gameClient) => {
+  return Selectors.getPlayerIndexForGameClientId(state, gameClient.getId()) > -1
+}
+
+  /************************************************
+ * The Actions
+ ************************************************/
+const Actions = {
+  addHumanPlayer: (clientAction, dispatch, getState, gameClient) => {
+    if (isGameClientAlreadyPlayer(getState(), gameClient)) {
+      // TODO: tell the client NO
+      console.log(`Not gonna add another player for ${gameClient.id}`)
+    } else {
+      dispatch({
+        ...clientAction,
+        gameClientId: gameClient.getId()
+      })
+    }
+  },
+
+  startGame: doAndDispatchNextTurn(
+    (clientAction, dispatch) => dispatch(clientAction)
+  ),
+
+  onRoomSelected: doIfPlayerTurnAndDispatchNextTurn(
+    (clientAction, dispatch) => dispatch(clientAction)
+  ),
+
+  nextPlayerTurn: () => ({
+    type: 'nextPlayerTurn'
+  }),
+
+  /**
+   * TODO: oh, this file is kinda annoying. is this isn't really an action, it's dispatching other
+   * actions on behalf of a client action. It _doesn't_ reduce, though, either.
+   * I guess it's annoyhing that adding an action on the client requires editing 4 files.
+   *
+   * Another crazy idea is the UI lives on the server. But get outta here with that.
+   *
+   * The server itself could export the game actions, actually. Map these things
+   * to client actions by a transform function?
+   */
+  onPlayerSelected: (clientAction, dispatch, getState, gameClient) => ({
+    type: 'onPlayerSelected',
+    player: player
+  })
+}
 
 module.exports = Actions

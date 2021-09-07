@@ -19,7 +19,8 @@ const Header = ({
     addComputerPlayer,
     startGame,
     resetGame,
-    gameStarted
+    gameStarted,
+    isAddHumanPlayerEnabled
 }) => (
   <div className="header">
     <div className="title">
@@ -44,7 +45,7 @@ const Header = ({
                  updatePlayerName(e.target.value);
                }}/>
         <button id="addHumanPlayer"
-                disabled={gameStarted}
+                disabled={!isAddHumanPlayerEnabled}
                 onClick={() => addHumanPlayer()}>Join!</button>
 
         <button id="addComputerPlayer"
@@ -68,7 +69,8 @@ const Header = ({
 const mapStateToProps = state => ({
   addPlayerForm: state.client.addPlayerForm,
   messageFromServer: state.messageFromServer,
-  gameStarted: state.gameStarted
+  gameStarted: state.gameStarted,
+  isAddHumanPlayerEnabled: !state.gameStarted && state.playerIndex < 0
 })
 
 export default connect(
